@@ -85,6 +85,11 @@ class ShaderProgram {
     }
   }
 
+  setUniformFloat(name: string, value: number) {
+    this.use();
+    gl.uniform1f(gl.getUniformLocation(this.prog, name), value);
+  }
+
   draw(d: Drawable) {
     this.use();
 
