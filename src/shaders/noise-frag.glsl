@@ -11,7 +11,7 @@
 // position, light position, and vertex color.
 precision highp float;
 
-uniform float u_Time;
+
 uniform vec4 u_Color; // The color with which to render this instance of geometry.
 
 // These are the interpolated values out of the rasterizer, so you can't know
@@ -20,6 +20,7 @@ in vec4 fs_Pos;
 in vec4 fs_Nor;
 in vec4 fs_LightVec;
 in vec4 fs_Col;
+in float fs_Time;
 
 out vec4 out_Col; // This is the final output color that you will see on your
                   // screen for the pixel that is currently being processed.
@@ -45,7 +46,7 @@ struct worleyInfo
 worleyInfo worleyNoise3D(vec3 p, float spaceScale)
 {
     // p *= spaceScale;
-    p *= spaceScale * vec3(8.0, 0.5, 1.0);
+    p *= spaceScale * vec3(6.0, 0.5, 1.0);
     vec3 cell = floor(p);
     vec3 ufract = fract(p);
 
@@ -63,7 +64,7 @@ worleyInfo worleyNoise3D(vec3 p, float spaceScale)
                 vec3 pos = hashOld33(cell + offset); // centerpoint of voronoi cell
 
                 // oscillate the centerpoint left and right based off time and cell position
-                pos.x += 0.5 * sin(u_Time * 10.0 + cell.x);
+                pos.x += 0.5 * sin(fs_Time * 10.0 + cell.x);
 
                 // distance between fragment 
                 vec3 diff = offset + pos - ufract;
@@ -98,6 +99,14 @@ const float dither[16] = float[]
 16.0 / 17.0,  8.0 / 17.0, 14.0 / 17.0,  6.0 / 17.0
 );
 
+uniform float u_Wrap;
+
+uniform vec3 u_Color0;
+uniform vec3 u_Color1;
+
+// uniform bool u_Outline;
+in float fs_Outline;
+
 void main()
 {
     // Material base color (before shading)
@@ -106,20 +115,22 @@ void main()
         // Calculate the diffuse term for Lambert shading
         float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));
         // Avoid negative lighting values
-        // diffuseTerm = clamp(diffuseTerm, 0, 1);
+        diffuseTerm = clamp(diffuseTerm, 0.0, 1.0);
 
-        float ambientTerm = 0.2;
+        // float ambientTerm = 0.2;
 
-        float lightIntensity = diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier
-                                                            //to simulate ambient lighting. This ensures that faces that are not
-                                                            //lit by our point light are not completely black.
+        // float lightIntensity = diffuseTerm + ambientTerm;   //Add a small float value to the color multiplier
+        //                                                     //to simulate ambient lighting. This ensures that faces that are not
+        //                                                     //lit by our point light are not completely black.
+
+        float lightIntensity = pow(diffuseTerm * u_Wrap + (1.0 - u_Wrap), 2.0);
 
         // // Compute final shaded color
         // out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);
 
         vec3 pos = fs_Pos.xyz;
-        // pos += vec3(0.0, cos(pos.y) + u_Time, sin(pos.z) + u_Time);
-        pos += vec3(0.0, cos(pos.y) + u_Time, 0.0);
+        // pos += vec3(0.0, cos(pos.y) + fs_Time, sin(pos.z) + fs_Time);
+        pos += vec3(0.0, cos(pos.y) + fs_Time, 0.0);
 
         worleyInfo info = worleyNoise3D(pos, 10.0);
     
@@ -127,27 +138,34 @@ void main()
         float distanceToEdge = info.dist1 - info.dist0;
 
         // float distanceToEdge = dot(0.5*(info.cellPos0+info.cellPos1),normalize(info.cellPos1-info.cellPos0));
-        distanceToEdge = 1.0 - smoothstep(0.0, 0.06, distanceToEdge);
+        distanceToEdge = 1.0 - smoothstep(0.0, 0.03, distanceToEdge);
 
         float nearestDist = info.dist0;
         // create sharp edges
         nearestDist = smoothstep(0.5, 0.6, nearestDist);
 
         // gradient map to blue
-        vec3 darkBlue = vec3(0, 105, 170) / 255.0;
-        vec3 lightBlue = vec3(0, 205, 249) / 255.0;
+        // vec3 lightBlue = vec3(0, 205, 249) / 255.0;
+        // vec3 darkBlue = vec3(0, 105, 170) / 255.0;
+        // vec3 color = mix(lightBlue, darkBlue, nearestDist);
 
-        vec3 color = mix(lightBlue, darkBlue, nearestDist);
+        vec3 color = mix(u_Color0, u_Color1, nearestDist);
         
-        // if (dist < dither[int(gl_FragCoord.x) % 16 + int(gl_FragCoord.y) % 16 * 4])
-            // discard;
+        float thres = dither[(int(gl_FragCoord.y) % 4) * 4 + int(gl_FragCoord.x) % 4];
 
         // out_Col = vec4(vec3(distanceToEdge), 1.0);
 
         // use distance to edge to draw outline
 
         vec3 emissive = vec3(distanceToEdge);
-        vec3 waterColor = color + emissive;
+        vec3 waterColor = color * lightIntensity;
+
+        if (fs_Outline > 0.0)
+        {
+            waterColor += emissive * (lightIntensity + 0.2);
+            if (distanceToEdge < thres)
+                discard;
+        }
 
         out_Col = vec4(waterColor, 1.0);
 }

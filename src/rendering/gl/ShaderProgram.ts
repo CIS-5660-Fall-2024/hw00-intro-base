@@ -1,4 +1,4 @@
-import {vec4, mat4} from 'gl-matrix';
+import {vec3, vec4, mat4} from 'gl-matrix';
 import Drawable from './Drawable';
 import {gl} from '../../globals';
 
@@ -88,6 +88,16 @@ class ShaderProgram {
   setUniformFloat(name: string, value: number) {
     this.use();
     gl.uniform1f(gl.getUniformLocation(this.prog, name), value);
+  }
+
+  setUniformBool(name: string, value: boolean) {
+    this.use();
+    gl.uniform1i(gl.getUniformLocation(this.prog, name), value ? 1 : 0);
+  }
+
+  setUniformVec3(name: string, value: vec3) {
+    this.use();
+    gl.uniform3fv(gl.getUniformLocation(this.prog, name), value);
   }
 
   draw(d: Drawable) {

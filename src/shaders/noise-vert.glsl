@@ -29,9 +29,51 @@ out vec4 fs_Pos;
 out vec4 fs_Nor;            // The array of normals that has been transformed by u_ModelInvTr. This is implicitly passed to the fragment shader.
 out vec4 fs_LightVec;       // The direction in which our virtual light lies, relative to each vertex. This is implicitly passed to the fragment shader.
 out vec4 fs_Col;            // The color of each vertex. This is implicitly passed to the fragment shader.
+out float fs_Time;
 
-const vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of
+const vec4 lightPos = vec4(-5, 5, -3, 1); //The position of our virtual light, which is used to compute the shading of
                                         //the geometry in the fragment shader.
+
+uniform float u_Time;
+uniform bool u_Outline;
+out float fs_Outline;
+
+// from https://www.shadertoy.com/view/4djSRW
+vec3 hashOld33( vec3 p )
+{
+	p = vec3( dot(p,vec3(127.1,311.7, 74.7)),
+			  dot(p,vec3(269.5,183.3,246.1)),
+			  dot(p,vec3(113.5,271.9,124.6)));
+
+	return fract(sin(p)*43758.5453123);
+}
+
+float surflet(vec3 p, vec3 gridPoint)
+{
+    vec3 t2 = abs(p - gridPoint);
+    vec3 pow3 = t2 * t2 * t2;
+    vec3 pow4 = pow3 * t2;
+    vec3 pow5 = pow4 * t2;
+    vec3 t = vec3(1.0) - 6.0 * pow5 + 15.0 * pow4 - 10.0 * pow3;
+    vec3 gradient = hashOld33(gridPoint) * 2. - vec3(1.0, 1.0, 1.0);
+    vec3 diff = p - gridPoint;
+    float height = dot(diff, gradient);
+    return height * t.x * t.y * t.z;
+    return 0.0;
+}
+
+float perlinNoise3D(vec3 p) 
+{
+	float surfletSum = 0.0;
+	for(int dx = 0; dx <= 1; ++dx) {
+		for(int dy = 0; dy <= 1; ++dy) {
+			for(int dz = 0; dz <= 1; ++dz) {
+				surfletSum += surflet(p, floor(p) + vec3(dx, dy, dz));
+			}
+		}
+	}
+	return surfletSum;
+}
 
 void main()
 {
@@ -43,12 +85,21 @@ void main()
                                                             // model matrix. This is necessary to ensure the normals remain
                                                             // perpendicular to the surface after the surface is transformed by
                                                             // the model matrix.
-
+    fs_Time = u_Time;
+    fs_Outline = u_Outline ? 1.0 : 0.0;
 
     vec4 modelposition = u_Model * vs_Pos;   // Temporarily store the transformed vertex positions for use below
 
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
 
-    gl_Position = u_ViewProj * modelposition;// gl_Position is a built-in variable of OpenGL which is
+    vec4 position = u_ViewProj * modelposition;
+    if (u_Outline) 
+    {
+        float pn = perlinNoise3D(position.xyz + vec3(127.1, 311.7, 715.2) * u_Time * 0.004);
+        vec3 noise = normalize(vs_Nor.xyz) * 0.4 * abs(pn);
+        position.xyz += noise;
+    }
+
+    gl_Position = position;// gl_Position is a built-in variable of OpenGL which is
                                              // used to render the final positions of the geometry's vertices
 }
