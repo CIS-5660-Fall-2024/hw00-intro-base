@@ -91,20 +91,11 @@ worleyInfo worleyNoise3D(vec3 p, float spaceScale)
     return info;
 }
 
-const float dither[16] = float[]
-(
-1.0 / 17.0,  9.0 / 17.0,  3.0 / 17.0, 11.0 / 17.0,
-13.0 / 17.0,  5.0 / 17.0, 15.0 / 17.0,  7.0 / 17.0,
-4.0 / 17.0, 12.0 / 17.0,  2.0 / 17.0, 10.0 / 17.0,
-16.0 / 17.0,  8.0 / 17.0, 14.0 / 17.0,  6.0 / 17.0
-);
-
 uniform float u_Wrap;
 
 uniform vec3 u_Color0;
 uniform vec3 u_Color1;
 
-// uniform bool u_Outline;
 in float fs_Outline;
 
 void main()
@@ -136,6 +127,7 @@ void main()
     
         // bad approximation
         float distanceToEdge = info.dist1 - info.dist0;
+        float ogDistanceToEdge = distanceToEdge;
 
         // float distanceToEdge = dot(0.5*(info.cellPos0+info.cellPos1),normalize(info.cellPos1-info.cellPos0));
         distanceToEdge = 1.0 - smoothstep(0.0, 0.03, distanceToEdge);
@@ -150,20 +142,14 @@ void main()
         // vec3 color = mix(lightBlue, darkBlue, nearestDist);
 
         vec3 color = mix(u_Color0, u_Color1, nearestDist);
-        
-        float thres = dither[(int(gl_FragCoord.y) % 4) * 4 + int(gl_FragCoord.x) % 4];
-
-        // out_Col = vec4(vec3(distanceToEdge), 1.0);
-
-        // use distance to edge to draw outline
 
         vec3 emissive = vec3(distanceToEdge);
         vec3 waterColor = color * lightIntensity;
 
         if (fs_Outline > 0.0)
         {
-            waterColor += emissive * (lightIntensity + 0.2);
-            if (distanceToEdge < thres)
+            waterColor += emissive * (lightIntensity + 0.4);
+            if (distanceToEdge < 0.5)
                 discard;
         }
 

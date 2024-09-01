@@ -75,6 +75,15 @@ float perlinNoise3D(vec3 p)
 	return surfletSum;
 }
 
+uniform float u_NoiseScale;
+
+float random1( vec3 p ) {
+    return fract(sin((dot(p, vec3(127.1,
+                                  311.7,
+                                  191.999)))) *         
+                 43758.5453);
+}
+
 void main()
 {
     fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation
@@ -93,12 +102,20 @@ void main()
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
 
     vec4 position = u_ViewProj * modelposition;
-    if (u_Outline) 
-    {
-        float pn = perlinNoise3D(position.xyz + vec3(127.1, 311.7, 715.2) * u_Time * 0.004);
-        vec3 noise = normalize(vs_Nor.xyz) * 0.4 * abs(pn);
-        position.xyz += noise;
-    }
+
+    float pn = perlinNoise3D(position.xyz + vec3(127.1, 311.7, 715.2) * u_Time * 0.004);
+    vec3 noise = normalize(vs_Nor.xyz) * u_NoiseScale * abs(pn);
+        
+    // if (u_Outline) 
+    // {
+        float amount = random1(modelposition.xyz);
+        position.x += 0.05 * sin(u_Time * 5.0 + modelposition.y);
+        position.xyz += amount * (0.5 * (sin(u_Time) + 1.0)) * noise;
+    // }
+    // else 
+    // {
+
+    // }
 
     gl_Position = position;// gl_Position is a built-in variable of OpenGL which is
                                              // used to render the final positions of the geometry's vertices

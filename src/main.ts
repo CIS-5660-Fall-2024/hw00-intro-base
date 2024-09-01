@@ -15,7 +15,8 @@ const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
   wrap: 0.5,
-  cube: false
+  cube: false,
+  noiseScale: 0.4
 };
 
 let icosphere: Icosphere;
@@ -53,6 +54,7 @@ function main() {
   gui.addColor(palette, 'color1');
 
   gui.add(controls, 'wrap', 0, 1).step(0.01);
+  gui.add(controls, 'noiseScale', 0, 1).step(0.01);
 
   gui.add(controls, 'cube');
 
@@ -108,6 +110,8 @@ function main() {
       return vec4.fromValues(r, g, b, 1);
     });
 
+    noise.setUniformFloat("u_NoiseScale", controls.noiseScale);
+
     noise.setUniformFloat("u_Time", performance.now() / 1000.0);
     noise.setUniformFloat("u_Wrap", controls.wrap);
 
@@ -134,7 +138,7 @@ function main() {
     objectToRender,
     // square,
     // cube
-  ], mat4.fromScaling(mat4.create(), vec3.fromValues(1.15, 1.02, 1.02))
+  ], mat4.fromScaling(mat4.create(), vec3.fromValues(1.06, 1.02, 1.04))
 );
 
     stats.end();
