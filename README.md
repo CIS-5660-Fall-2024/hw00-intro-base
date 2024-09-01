@@ -2,7 +2,7 @@
 
 ## Wavy Waterfall
 
-[Live Demo]()
+[Live Demo](https://aarontian-stack.github.io/hw00-intro-base/)
 
 ![sphere](sphere.gif)
 ![cube](cube.png)
