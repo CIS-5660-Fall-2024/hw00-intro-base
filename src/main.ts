@@ -115,6 +115,8 @@ function main() {
     noise.setUniformFloat("u_Time", performance.now() / 1000.0);
     noise.setUniformFloat("u_Wrap", controls.wrap);
 
+    noise.setUniformVec3("u_CameraPos", camera.controls.eye);
+
     var color0 = shaderColor(palette.color0);
     var color1 = shaderColor(palette.color1);
 

@@ -98,6 +98,8 @@ uniform vec3 u_Color1;
 
 in float fs_Outline;
 
+uniform vec3 u_CameraPos;
+
 void main()
 {
     // Material base color (before shading)
@@ -143,11 +145,17 @@ void main()
 
         vec3 color = mix(u_Color0, u_Color1, nearestDist);
 
+        // specular
+        vec3 halfwayDir = normalize(fs_LightVec.xyz + vec3(fs_Pos.xyz - u_CameraPos)); 
+        float spec = pow(max(dot(fs_Nor.xyz, halfwayDir), 0.0), 64.0);
+        lightIntensity += spec;
+
         vec3 emissive = vec3(distanceToEdge);
         vec3 waterColor = color * lightIntensity;
 
         if (fs_Outline > 0.0)
         {
+            
             waterColor += emissive * (lightIntensity + 0.4);
             if (distanceToEdge < 0.5)
                 discard;
