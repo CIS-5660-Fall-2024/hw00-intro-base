@@ -5,6 +5,24 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+<p align="center">
+  <img width="360" height="360" src=".\imgs\1.gif">
+</p>
+<p align="center"></p>
+
+## Submission
+Vertex shader:
+
+- Distortion via FBM
+
+Fragment shader:
+
+- Perlin Noise
+- Worley Noise
+- Custom Shader
+### Live Demo
+https://zhiyi1801.github.io/hw00-intro-base/
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
@@ -17,9 +35,14 @@ Rather than cloning the homework repository, please __fork__ the code into your 
 
 1. [Install Node.js](https://nodejs.org/en/download/). Node.js is a JavaScript runtime. It basically allows you to run JavaScript when not in a browser. For our purposes, this is not necessary. The important part is that with it comes `npm`, the Node Package Manager. This allows us to easily declare and install external dependencies such as [dat.GUI](https://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage), and [glMatrix](http://glmatrix.net/).
 
-2. Using a command terminal, run `npm install` in the root directory of your project. This will download all of those dependencies.
+```
+fnm env --use-on-cd | Out-String | Invoke-Expression
+fnm use --install-if-missing 16
+```
 
-3. Do either of the following (but we highly recommend the first one for reasons we will explain later).
+1. Using a command terminal, run `npm install` in the root directory of your project. This will download all of those dependencies.
+
+2. Do either of the following (but we highly recommend the first one for reasons we will explain later).
 
     a. Run `npm start` and then go to `localhost:5660` in your web browser
 
@@ -65,6 +88,7 @@ To check if everything is on the right track:
 2. Update README.md to contain a solid description of your project with a screenshot of some visuals, and a link to your live demo.
 3. Submit the link to your pull request on Canvas, and add a comment to your submission with a hyperlink to your live demo.
 4. Include a link to your live site.
+
 
 ## Resources
 - Javascript modules https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
