@@ -1,5 +1,28 @@
 # HW 0: Intro to Javascript and WebGL
 
+## Wavy Waterfall
+
+[Live Demo](https://aarontian-stack.github.io/hw00-intro-base/)
+
+![sphere](sphere.gif)
+![cube](cube.png)
+
+Vertex Shader:
+  - Sways back and forth non-uniformly depending on vertex position
+  - Pulsates in and out based off 3D Perlin Noise
+
+Fragment Shader:
+  - 3D Worley Noise
+    - Scaled and color mapped to create water effect
+    - White outline uses same noise function but uses distance from cell edges instead of cell centers to draw cell outlines
+
+There are settings to change the two colors used, lighting falloff (wrap), noise scale, and to toggle whether to see the sphere/cube.
+
+References
+- https://iquilezles.org/articles/voronoilines/
+- https://www.jordanstevenstechart.com/lighting-models
+  - I used Valve's half lambert lighting model. I also added basic specular highlights to the lighting.
+
 <p align="center">
   <img width="360" height="360" src="https://user-images.githubusercontent.com/1758825/132532354-e3a45402-e484-499e-bfa7-2d73b9f2c946.png">
 </p>
