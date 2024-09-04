@@ -1,8 +1,10 @@
 import {vec3} from 'gl-matrix';
+import {vec4} from 'gl-matrix';
 const Stats = require('stats-js');
 import * as DAT from 'dat.gui';
 import Icosphere from './geometry/Icosphere';
 import Square from './geometry/Square';
+import Cube from './geometry/Cube';
 import OpenGLRenderer from './rendering/gl/OpenGLRenderer';
 import Camera from './Camera';
 import {setGL} from './globals';
@@ -17,13 +19,17 @@ const controls = {
 
 let icosphere: Icosphere;
 let square: Square;
+let cube: Cube;
 let prevTesselations: number = 5;
+let prevColor1: number[] = [ 0, 128, 255 ];
 
 function loadScene() {
   icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
   icosphere.create();
   square = new Square(vec3.fromValues(0, 0, 0));
   square.create();
+  cube = new Cube(vec3.fromValues(0, 0, 0));
+  cube.create();
 }
 
 function main() {
@@ -34,11 +40,19 @@ function main() {
   stats.domElement.style.left = '0px';
   stats.domElement.style.top = '0px';
   document.body.appendChild(stats.domElement);
+  
+  // references to the dat.gui example
+  var colors = {
+    col1: [ 0, 128, 255 ], // RGB array
+  };
+
 
   // Add controls to the gui
   const gui = new DAT.GUI();
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
+  gui.addColor(colors, 'col1');
+  var outColor = vec4.fromValues(colors.col1[0]/255,colors.col1[1]/255,colors.col1[2]/255,1);
 
   // get canvas and webgl context
   const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -76,10 +90,20 @@ function main() {
       icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, prevTesselations);
       icosphere.create();
     }
+
+    //check if the color has changed
+    if(colors.col1 != prevColor1){
+      prevColor1 = colors.col1;
+      outColor = vec4.fromValues(colors.col1[0]/255,colors.col1[1]/255,colors.col1[2]/255,1);
+      lambert.setGeometryColor(outColor);
+    }
+  
+
     renderer.render(camera, lambert, [
       icosphere,
       // square,
-    ]);
+      // cube,
+    ],outColor);
     stats.end();
 
     // Tell the browser to call `tick` again whenever it renders a new frame
