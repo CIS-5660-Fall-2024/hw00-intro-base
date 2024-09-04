@@ -29,6 +29,10 @@ class ShaderProgram {
   unifModelInvTr: WebGLUniformLocation;
   unifViewProj: WebGLUniformLocation;
   unifColor: WebGLUniformLocation;
+  unifTime: WebGLUniformLocation;
+  unifTimeFactor: WebGLUniformLocation;
+  unifGrass: WebGLUniformLocation;
+  unifLightIntensity: WebGLUniformLocation;
 
   constructor(shaders: Array<Shader>) {
     this.prog = gl.createProgram();
@@ -48,6 +52,10 @@ class ShaderProgram {
     this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
     this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
     this.unifColor      = gl.getUniformLocation(this.prog, "u_Color");
+    this.unifTime       = gl.getUniformLocation(this.prog, "u_Time");
+    this.unifTimeFactor = gl.getUniformLocation(this.prog, "u_TimeFactor");
+    this.unifGrass = gl.getUniformLocation(this.prog, "u_GrassPercent");
+    this.unifLightIntensity = gl.getUniformLocation(this.prog, "u_LightIntensity");
   }
 
   use() {
@@ -82,6 +90,34 @@ class ShaderProgram {
     this.use();
     if (this.unifColor !== -1) {
       gl.uniform4fv(this.unifColor, color);
+    }
+  }
+
+  setTime(time: GLfloat) {
+    this.use();
+    if (this.unifTime !== -1) {
+      gl.uniform1f(this.unifTime, time);
+    }
+  }
+
+  setTimeFactor(timeFactor: GLfloat) {
+    this.use();
+    if (this.unifTimeFactor !== -1) {
+      gl.uniform1f(this.unifTimeFactor, timeFactor);
+    }
+  }
+
+  setGrass(grassPercent: GLfloat) {
+    this.use();
+    if (this.unifGrass !== -1) {
+      gl.uniform1f(this.unifGrass, grassPercent);
+    }
+  }
+
+  setLightIntensity(intensity: GLfloat) {
+    this.use();
+    if (this.unifLightIntensity !== -1) {
+      gl.uniform1f(this.unifLightIntensity, intensity);
     }
   }
 

@@ -1,9 +1,25 @@
 # HW 0: Intro to Javascript and WebGL
 
+## Description
+Here's a Minecraft block! [Live demo 🚀](https://sgmq0.github.io/hw00-intro-base/)
+
+**Fragment Shader**
+- Several layers of Perlin noise with FBM octaves, mixed to achieve the classic dirt look
+- For the grass, I just stretched some more 3D Perlin Noise and enabled alpha
+
+**Vertex Shader**
+- Modified the `Square` class so that it'd actually work, and created new Grass shaders
+- Sin function on only the top half of the grass, with a bit of noise on the speed for variety
+
 <p align="center">
-  <img width="360" height="360" src="https://user-images.githubusercontent.com/1758825/132532354-e3a45402-e484-499e-bfa7-2d73b9f2c946.png">
-</p>
-<p align="center">(source: Ken Perlin)</p>
+    <img width="360" height="360" src="https://i.imgur.com/37X1NYn.gif">
+  </p>
+<p align="center">It wiggles!</p>
+
+### Sources I Used 
+- [Reference for dat.gui API](https://barionleg.github.io/dat.gui/API.html)
+- [Reference for Perlin Noise](https://github.com/stegu/webgl-noise)
+- [Reference for 2D Noise](https://www.shadertoy.com/view/4dS3Wd)
 
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.

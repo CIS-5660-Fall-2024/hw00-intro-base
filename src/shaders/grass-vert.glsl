@@ -20,7 +20,7 @@ uniform mat4 u_ViewProj;    // The matrix that defines the camera's transformati
                             // but in HW3 you'll have to generate one yourself
 
 uniform float u_Time;            // just the time, used for animating stuff
-uniform float u_GrassPercent;    // silly grass :3
+uniform float u_TimeFactor;      // wiggly grass :3
 uniform float u_LightIntensity;
 
 in vec4 vs_Pos;             // The array of vertex positions passed to the shader
@@ -32,18 +32,38 @@ out vec4 fs_LightVec;       // The direction in which our virtual light lies, re
 out vec4 fs_Col;            // The color of each vertex. This is implicitly passed to the fragment shader.
 out vec4 fs_Pos;
 out float fs_Time;
-out float fs_Grass;
 out float fs_LightIntensity;
 
 const vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of
                                         //the geometry in the fragment shader.
+
+//test deploy
+// 2d random noise by morgan mcguire
+// https://www.shadertoy.com/view/4dS3Wd
+float hash(vec2 p) {
+  vec3 p3 = fract(vec3(p.xyx) * 0.13); 
+  p3 += dot(p3, p3.yzx + 3.333); 
+  return fract((p3.x + p3.y) * p3.z); 
+}
+
+float noise(vec2 x) {
+  vec2 i = floor(x);
+  vec2 f = fract(x);
+
+	float a = hash(i);
+  float b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0));
+  float d = hash(i + vec2(1.0, 1.0));
+
+  vec2 u = f * f * (3.0 - 2.0 * f);
+	return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
 
 void main()
 {
     fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation
     fs_Pos = vs_Pos;
     fs_Time = u_Time;
-    fs_Grass = u_GrassPercent;
     fs_LightIntensity = u_LightIntensity;
 
     mat3 invTranspose = mat3(u_ModelInvTr);
@@ -52,9 +72,15 @@ void main()
                                                             // model matrix. This is necessary to ensure the normals remain
                                                             // perpendicular to the surface after the surface is transformed by
                                                             // the model matrix.
+    
+    float random = noise(vec2(fs_Pos.x, fs_Pos.y));
 
-
-    vec4 modelposition = u_Model * vs_Pos;   // Temporarily store the transformed vertex positions for use below
+    vec4 new_Pos = vs_Pos;
+    if (vs_Pos.y > 1.0) {
+      new_Pos = vec4(vs_Pos.x + sin((u_Time / 30.f) * u_TimeFactor * random) / 10.f, vs_Pos.y, vs_Pos.z, vs_Pos.w);
+    } 
+ 
+    vec4 modelposition = u_Model * new_Pos;   // Temporarily store the transformed vertex positions for use below
 
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
 
