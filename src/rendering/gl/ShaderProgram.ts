@@ -19,6 +19,7 @@ export class Shader {
 };
 
 class ShaderProgram {
+  
   prog: WebGLProgram;
 
   attrPos: number;
@@ -84,6 +85,30 @@ class ShaderProgram {
       gl.uniform4fv(this.unifColor, color);
     }
   }
+
+  setUniform1f(name: string, value: number) {
+    this.use();
+    const uniformLocation = gl.getUniformLocation(this.prog, name);
+    if (uniformLocation !== null) {
+      gl.uniform1f(uniformLocation, value);
+    }
+  }
+
+  setUniform3fv(name: string, value: Float32Array) {
+    this.use();
+    const uniformLocation = gl.getUniformLocation(this.prog, name);
+    if (uniformLocation !== null) {
+      gl.uniform3fv(uniformLocation, value);
+    }
+  }
+
+  setUniform4fv(name: string, value: Float32Array) {
+    this.use();
+    const uniformLocation = gl.getUniformLocation(this.prog, name);
+    if (uniformLocation !== null) {
+      gl.uniform4fv(uniformLocation, value);
+    }
+}
 
   draw(d: Drawable) {
     this.use();

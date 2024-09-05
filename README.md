@@ -5,6 +5,32 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## Project Description
+This project implements a dynamic procedural noise shader using WebGL and GLSL. The project allows you to manipulate several input such as noise scales, base colors, ambient lighting, through GUI, providing instant feedback.
+<img width="1470" alt="Demo" src="https://github.com/user-attachments/assets/37161b6d-9c7d-49c6-8f7a-d174d1df0229">
+
+## Features
+1. **Procedural Noise Fragment Shader**:
+    - Implemented a custom fragment shader using **FBM (Fractal Brownian Motion)** noise based on 3D inputs, which allows for the simulation of textures like lava, clouds, or abstract organic patterns.
+2. **Vertex Shader with Trigonometric Modification**:
+    - The vertex positions of the objects are modified over time using a sine function, which causes the objects to oscillate dynamically.
+3. **Interactive Controls via `dat.GUI`**:
+    - **Color Control**: Modify the base color of the shader dynamically.
+    - **Noise Scale**: Control the scale of the noise across the X, Y, and Z axes for precise manipulation of the noise effect.
+    - **Ambient Light Control**: Adjust the ambient lighting term to make the cube more or less illuminated.
+    - **Base Color Control**: Change the base color used in the noise function, allowing for dramatic color changes in the rendered object.
+4. **Real-Time Interaction**:
+    - The project allows for real-time interaction with the shader through the provided GUI, offering immediate visual feedback as parameters are adjusted.
+
+## Live Demo
+You can view a live demo of this project here: https://wang-ruipeng.github.io/CIS566-24fall-hw0/
+
+## Output
+
+https://github.com/user-attachments/assets/06a510a0-199c-45e0-9541-e839f17e23af
+
+## Following part of the REAMDME is the original instruction to this assignment.
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
