@@ -18,6 +18,7 @@ uniform vec4 u_Color; // The color with which to render this instance of geometr
 in vec4 fs_Nor;
 in vec4 fs_LightVec;
 in vec4 fs_Col;
+in vec4 fs_Pos;
 
 out vec4 out_Col; // This is the final output color that you will see on your
                   // screen for the pixel that is currently being processed.
@@ -30,7 +31,7 @@ void main()
         // Calculate the diffuse term for Lambert shading
         float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));
         // Avoid negative lighting values
-        // diffuseTerm = clamp(diffuseTerm, 0, 1);
+        diffuseTerm = clamp(diffuseTerm, 0.0, 1.0);
 
         float ambientTerm = 0.2;
 

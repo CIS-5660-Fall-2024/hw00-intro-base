@@ -5,6 +5,25 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+# Anthony Ge Submission
+For this assignment, I made a wobbly egg using 3D value noise, GL alphablending, and simple sin-based vertex deformation.
+Demo live here: [https://geant04.github.io/hw00-intro-base/](https://geant04.github.io/hw00-intro-base/)
+
+![Egg.](/egg.gif)
+![Cube.](/image.png)
+
+Vertex Deformation:
+- Vertically displaced vertices based on the x and y position, using sin and cosine
+
+Fragment Deformation:
+- Used local vertex position to sample a deterministic 3D value noise function, discarding pixels under 0.30 and smoothstepping the value otherwise
+- Mapped noise value to a cosine gradient and mixed with diffuse color, along with a combination of the rgb from vertex color to produce final fragment rgb 
+
+References
+- 3D value noise: [https://www.shadertoy.com/view/4dS3Wd](https://www.shadertoy.com/view/4dS3Wd)
+- Cosine gradient color mapping: [http://dev.thi.ng/gradients/](http://dev.thi.ng/gradients/)
+
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
