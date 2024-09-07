@@ -1,4 +1,4 @@
-import {vec3} from 'gl-matrix';
+import {vec3, vec4} from 'gl-matrix';
 const Stats = require('stats-js');
 import * as DAT from 'dat.gui';
 import Icosphere from './geometry/Icosphere';
@@ -14,6 +14,9 @@ import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
+  colorRed: 1,
+  colorGreen: 0,
+  colorBlue: 0
 };
 
 let icosphere: Icosphere;
@@ -26,7 +29,7 @@ function loadScene() {
   icosphere.create();
   // square = new Square(vec3.fromValues(0, 0, 0));
   // square.create();
-  cube = new Cube(vec3.fromValues(0, 3, 0))
+  cube = new Cube(vec3.fromValues(0, 1.5, 0))
   cube.create();
 }
 
@@ -43,6 +46,9 @@ function main() {
   const gui = new DAT.GUI();
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
+  gui.add(controls, 'colorRed', 0, 1)
+  gui.add(controls, 'colorGreen', 0, 1)
+  gui.add(controls, 'colorBlue', 0, 1)
 
   // get canvas and webgl context
   const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -68,6 +74,7 @@ function main() {
     new Shader(gl.FRAGMENT_SHADER, require('./shaders/lambert-frag.glsl')),
   ]);
 
+
   // This function will be called every frame
   function tick() {
     camera.update();
@@ -80,9 +87,13 @@ function main() {
       icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, prevTesselations);
       icosphere.create();
     }
-    renderer.render(camera, lambert, [
+
+    // pass color from controls to lambert
+    let geoColor: vec4 = vec4.fromValues(controls.colorRed, controls.colorGreen, controls.colorBlue, 1);
+
+    renderer.render(camera, lambert, geoColor, [
       icosphere,
-      cube
+      cube,
     ]);
     stats.end();
 
