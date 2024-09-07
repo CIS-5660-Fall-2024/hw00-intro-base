@@ -5,6 +5,14 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## RESULTS
+
+![](results/ss1.png)
+![](results/ss2.png)
+![](results/ss3.png)
+![](results/demo.gif)
+
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
