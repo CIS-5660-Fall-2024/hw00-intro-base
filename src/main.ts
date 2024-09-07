@@ -26,7 +26,7 @@ function loadScene() {
   icosphere.create();
   // square = new Square(vec3.fromValues(0, 0, 0));
   // square.create();
-  cube = new Cube(vec3.fromValues(0, 0, 0))
+  cube = new Cube(vec3.fromValues(0, 3, 0))
   cube.create();
 }
 

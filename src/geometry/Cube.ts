@@ -36,10 +36,10 @@ class Cube extends Drawable {
       // add positions
       for (let a: number = -1; a < 2; a += 2) {
         for (let b: number = -1; b < 2; b += 2) {
-          let pos: number[] = [0, 0, 0, 1]
-          pos[axis] = dir
-          pos[(axis + 1) % 3] = a
-          pos[(axis + 2) % 3] = b
+          let pos: number[] = [this.center[0], this.center[1], this.center[2], 1]
+          pos[axis] += dir
+          pos[(axis + 1) % 3] += a
+          pos[(axis + 2) % 3] += b
 
           positions_lst.push(...pos)
         }
