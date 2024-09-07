@@ -7,6 +7,12 @@
 
 ## RESULTS
 
+For the fragment's shader noise, I used Worley noise and converted each fragment's world-space position into a grid-space position. I used a deterministic "RNG" function to assign each grid cell a color and an interior point; each fragment then has its noise as the color of the cell with the closest interior point.
+
+For the vertex's shader noise, I modified the model-space vertex positions. To get different transformations for each vertex, I used noise tied to their positions in model space.
+
+I was unable to get the live demo working due to a compilation error in one of the modules (which didn't affect my ability to run the program), so there is a .gif below, as well as some screenshots, that demonstrates how the program runs.
+
 ![](results/ss1.png)
 ![](results/ss2.png)
 ![](results/ss3.png)
