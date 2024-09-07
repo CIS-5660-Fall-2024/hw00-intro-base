@@ -23,13 +23,14 @@ let icosphere: Icosphere;
 let square: Square;
 let cube: Cube;
 let prevTesselations: number = 5;
+let tickNumber: number = 0;
 
 function loadScene() {
-  icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 0.5, controls.tesselations);
+  icosphere = new Icosphere(vec3.fromValues(0, 1.5, 0), 0.5, controls.tesselations);
   icosphere.create();
   // square = new Square(vec3.fromValues(0, 0, 0));
   // square.create();
-  cube = new Cube(vec3.fromValues(0, 1.5, 0))
+  cube = new Cube(vec3.fromValues(0, 0, 0))
   cube.create();
 }
 
@@ -77,6 +78,8 @@ function main() {
 
   // This function will be called every frame
   function tick() {
+    tickNumber += 1;
+
     camera.update();
     stats.begin();
     gl.viewport(0, 0, window.innerWidth, window.innerHeight);
@@ -91,10 +94,7 @@ function main() {
     // pass color from controls to lambert
     let geoColor: vec4 = vec4.fromValues(controls.colorRed, controls.colorGreen, controls.colorBlue, 1);
 
-    renderer.render(camera, lambert, geoColor, [
-      icosphere,
-      cube,
-    ]);
+    renderer.render(camera, lambert, geoColor, tickNumber, [icosphere, cube]);
     stats.end();
 
     // Tell the browser to call `tick` again whenever it renders a new frame

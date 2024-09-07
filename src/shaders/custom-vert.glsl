@@ -19,6 +19,8 @@ uniform mat4 u_ViewProj;    // The matrix that defines the camera's transformati
                             // We've written a static matrix for you to use for HW2,
                             // but in HW3 you'll have to generate one yourself
 
+uniform float u_Tick;
+
 in vec4 vs_Pos;             // The array of vertex positions passed to the shader
 
 in vec4 vs_Nor;             // The array of vertex normals passed to the shader
@@ -33,6 +35,14 @@ out vec4 fs_WorldPos;            // world-space position for the fragmnt shader
 const vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of
                                         //the geometry in the fragment shader.
 
+vec3 det_rand(vec3 p)
+{
+    float x = fract(sin(dot(p, vec3(12.989, 78.233, 97.253))) * 10967.839);
+    float y = fract(sin(dot(p, vec3(87.252, 44.240, 33.827))) * 84424.717);
+    float z = fract(sin(dot(p, vec3(55.421, 73.210, 67.251))) * 49081.493);
+    return vec3(x, y, z);
+}
+
 void main()
 {
     fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation
@@ -44,8 +54,13 @@ void main()
                                                             // perpendicular to the surface after the surface is transformed by
                                                             // the model matrix.
 
+    vec3 noise = det_rand(vec3(vs_Pos));
 
     vec4 modelposition = u_Model * vs_Pos;   // Temporarily store the transformed vertex positions for use below
+
+    modelposition.x += noise.x * sin(u_Tick / 300.0 - 0.5);
+    modelposition.y += noise.y * sin(u_Tick / 2000.0 - 0.25);
+    modelposition.z += noise.z * sin(u_Tick / 400.0);
 
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
 
@@ -53,4 +68,5 @@ void main()
                                              // used to render the final positions of the geometry's vertices
 
     fs_WorldPos = u_Model * vs_Pos;
+
 }
