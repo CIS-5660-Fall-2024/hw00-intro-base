@@ -5,6 +5,13 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## Result
+- Cartoon Gem Stone?
+
+![result](result.gif)
+
+Used FBM and Worley noise ([Link To Live Demo](https://hantingxu.github.io/hw00-intro-base/))
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
