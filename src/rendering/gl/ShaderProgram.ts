@@ -24,11 +24,16 @@ class ShaderProgram {
   attrPos: number;
   attrNor: number;
   attrCol: number;
+  attrUV: number;
 
   unifModel: WebGLUniformLocation;
   unifModelInvTr: WebGLUniformLocation;
   unifViewProj: WebGLUniformLocation;
   unifColor: WebGLUniformLocation;
+  unifNumCells: WebGLUniformLocation;
+  unifTime: WebGLUniformLocation;
+  unifFoamSpeed: WebGLUniformLocation;
+  unifFoamRoughness: WebGLUniformLocation;
 
   constructor(shaders: Array<Shader>) {
     this.prog = gl.createProgram();
@@ -41,13 +46,18 @@ class ShaderProgram {
       throw gl.getProgramInfoLog(this.prog);
     }
 
-    this.attrPos = gl.getAttribLocation(this.prog, "vs_Pos");
-    this.attrNor = gl.getAttribLocation(this.prog, "vs_Nor");
-    this.attrCol = gl.getAttribLocation(this.prog, "vs_Col");
-    this.unifModel      = gl.getUniformLocation(this.prog, "u_Model");
-    this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
-    this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
-    this.unifColor      = gl.getUniformLocation(this.prog, "u_Color");
+    this.attrPos            = gl.getAttribLocation(this.prog, "vs_Pos");
+    this.attrNor            = gl.getAttribLocation(this.prog, "vs_Nor");
+    this.attrCol            = gl.getAttribLocation(this.prog, "vs_Col");
+    this.attrUV             = gl.getAttribLocation(this.prog, "vs_UV");
+    this.unifModel          = gl.getUniformLocation(this.prog, "u_Model");
+    this.unifModelInvTr     = gl.getUniformLocation(this.prog, "u_ModelInvTr");
+    this.unifViewProj       = gl.getUniformLocation(this.prog, "u_ViewProj");
+    this.unifColor          = gl.getUniformLocation(this.prog, "u_Color");
+    this.unifNumCells       = gl.getUniformLocation(this.prog, "u_NumCells");
+    this.unifTime           = gl.getUniformLocation(this.prog, "u_Time");
+    this.unifFoamSpeed      = gl.getUniformLocation(this.prog, "u_FoamSpeed");
+    this.unifFoamRoughness  = gl.getUniformLocation(this.prog, "u_FoamRoughness");
   }
 
   use() {
@@ -85,6 +95,34 @@ class ShaderProgram {
     }
   }
 
+  setNumCells(numCells: number) {
+    this.use();
+    if (this.unifNumCells !== -1) {
+      gl.uniform1i(this.unifNumCells, numCells);
+    }
+  }
+
+  setTime(time: number) {
+    this.use();
+    if (this.unifTime !== -1) {
+      gl.uniform1i(this.unifTime, time);
+    }
+  }
+
+  setFoamSpeed(speed: number) {
+    this.use();
+    if (this.unifFoamSpeed !== -1) {
+      gl.uniform1f(this.unifFoamSpeed, speed);
+    }
+  }
+
+  setFoamRoughness(roughness: number) {
+    this.use();
+    if (this.unifFoamRoughness !== -1) {
+      gl.uniform1f(this.unifFoamRoughness, roughness);
+    }
+  }
+
   draw(d: Drawable) {
     this.use();
 
@@ -96,6 +134,11 @@ class ShaderProgram {
     if (this.attrNor != -1 && d.bindNor()) {
       gl.enableVertexAttribArray(this.attrNor);
       gl.vertexAttribPointer(this.attrNor, 4, gl.FLOAT, false, 0, 0);
+    }
+
+    if (this.attrUV != -1 && d.bindUV()) {
+      gl.enableVertexAttribArray(this.attrUV);
+      gl.vertexAttribPointer(this.attrUV, 2, gl.FLOAT, false, 0, 0);
     }
 
     d.bindIdx();
