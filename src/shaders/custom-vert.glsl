@@ -6,6 +6,7 @@
 //If it were run on your CPU, each vertex would have to be processed in a FOR loop, one at a time.
 //This simultaneous transformation allows your program to run much faster, especially when rendering
 //geometry with millions of vertices.
+uniform float u_Tick;
 
 uniform mat4 u_Model;       // The matrix that defines the transformation of the
                             // object we're rendering. In this assignment,
@@ -36,7 +37,12 @@ const vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, whi
 void main()
 {
     fs_Col = vs_Col;                         // Pass the vertex colors to the fragment shader for interpolation
-    fs_Pos = vs_Pos;
+    float t = u_Tick;
+    float s = sin(t/50.0 + vs_Pos[1]) * 0.5;
+    float c = cos(t/70.0 + vs_Pos[2]) * 0.9;
+    float h = sin(t/20.0 + vs_Pos[0]) * 0.7;
+    vec3 pos = vec3(vs_Pos[0] + s, vs_Pos[1] + c, vs_Pos[2] + h);
+    fs_Pos = vec4(pos, 1);
     
     mat3 invTranspose = mat3(u_ModelInvTr);
     fs_Nor = vec4(invTranspose * vec3(vs_Nor), 0);          // Pass the vertex normals to the fragment shader for interpolation.
@@ -45,8 +51,7 @@ void main()
                                                             // perpendicular to the surface after the surface is transformed by
                                                             // the model matrix.
 
-
-    vec4 modelposition = u_Model * vs_Pos;   // Temporarily store the transformed vertex positions for use below
+    vec4 modelposition = u_Model * fs_Pos;   // Temporarily store the transformed vertex positions for use below
 
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
 

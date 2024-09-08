@@ -1,5 +1,10 @@
 # HW 0: Intro to Javascript and WebGL
 
+## Description
+
+<img width="1436" alt="Screenshot 2024-09-08 at 11 41 37 AM" src="https://github.com/user-attachments/assets/96478304-291f-4932-ab6d-c2dc08ef8e68">
+I created a cube in the scene, then created a fragment shader that used fbm to get that unique marble texture that we saw in class. After that, I created a vertex shader that used sin and cos functions to non-uniformly warp the x, y and z coordinates of every vertex. I also made sure to modify the vertex coords passed to the fragment shader, meaning that it perfectly wraps around the cube even when the vertices move, so the textures on all sides of the cube cleanly connect and change when the vertex coords change. If you look at https://virajdoshi02.github.io/hw00-intro-base/, you can see how the marble texture on the cube remains unbroken no matter what happens to the cube.
+
 <p align="center">
   <img width="360" height="360" src="https://user-images.githubusercontent.com/1758825/132532354-e3a45402-e484-499e-bfa7-2d73b9f2c946.png">
 </p>
@@ -11,19 +16,19 @@
 - Practice implementing noise
 
 ## Forking the Code
-Rather than cloning the homework repository, please __fork__ the code into your own repository using the `Fork` button in the upper-right hand corner of the Github UI. This will enable you to have your own personal repository copy of the code, and let you make a live demo (described later in this document).
+Rather than cloning the homework repository, please __fork__ the code into your own repository using the `Fork` button in the upper-right hand corner of the Github UI. This will enable you to have your own personal repository copy of the code, and let you make a live demo (described later in this document)
 
 ## Running the Code
 
-1. [Install Node.js](https://nodejs.org/en/download/). Node.js is a JavaScript runtime. It basically allows you to run JavaScript when not in a browser. For our purposes, this is not necessary. The important part is that with it comes `npm`, the Node Package Manager. This allows us to easily declare and install external dependencies such as [dat.GUI](https://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage), and [glMatrix](http://glmatrix.net/).
+1. [Install Node.js](https://nodejs.org/en/download/). Node.js is a JavaScript runtime. It basically allows you to run JavaScript when not in a browser. For our purposes, this is not necessary. The important part is that with it comes `npm` the Node Package Manager. This allows us to easily declare and install external dependencies such as [dat.GUI](https://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage), and [glMatrix](http://glmatrix.net/)
 
-2. Using a command terminal, run `npm install` in the root directory of your project. This will download all of those dependencies.
+2. Using a command terminal, run `npm install` in the root directory of your project. This will download all of those dependencies
 
 3. Do either of the following (but we highly recommend the first one for reasons we will explain later).
 
     a. Run `npm start` and then go to `localhost:5660` in your web browser
 
-    b. Run `npm run build` and then go open `dist/index.html` in your web browser
+    b. Run `npm run build` and then go open `dist/index.html` in your browser
 
 ## Module Bundling
 One of the most important dependencies of our projects is [Webpack](https://webpack.js.org/concepts/). Webpack is a module bundler which allows us to write code in separate files and use `import`s and `export`s to load classes and functions for other files. It also allows us to preprocess code before compiling to a single file. We will be using [Typescript](https://www.typescriptlang.org/docs/home.html) for this course which is Javascript augmented with type annotations. Webpack will convert Typescript files to Javascript files on compilation and in doing so will also check for proper type-safety and usage. Read more about Javascript modules in the resources section below.
@@ -37,7 +42,7 @@ We would suggest editing your project with Visual Studio Code https://code.visua
 1. Take some time to go through the existing codebase so you can get an understanding of syntax and how the code is architected. Much of the code is designed to mirror the class structures used in CIS 460's OpenGL assignments, so it should hopefully be somewhat familiar.
 2. Take a look at the resources linked in the section below. Definitely read about Javascript modules and Typescript. The other links provide documentation for classes used in the code.
 3. Add a `Cube` class that inherits from `Drawable` and at the very least implement a constructor and its `create` function. Then, add a `Cube` instance to the scene to be rendered.
-4. Read the documentation for dat.GUI below. Update the existing GUI in `main.ts` with a parameter to alter the color passed to `u_Color` in the Lambert shader.
+4. Read the documentation for dat.GUI below. Update the existing GUI in `main.ts` with a parameter to alter the color passed to `` in the Lambert shader.
 5. Write a custom fragment shader that implements FBM, Worley Noise, or Perlin Noise based on 3D inputs (as opposed to the 2D inputs in the slides). This noise must be used to modify your fragment color. If your custom shader is particularly interesting, you'll earn some bonus points.
 6. Write a custom vertex shader that uses a trigonometric function (e.g. `sin`, `tan`) to non-uniformly modify your cube's vertex positions over time. This will necessitate instantiating an incrementing variable in your Typescript code that you pass to your shader every tick. Refer to the base code's methods of passing variables to shaders if you are unsure how to do so.
 7. Feel free to update any of the files when writing your code. The implementation of the `OpenGLRenderer` is currently very simple.

@@ -25,6 +25,7 @@ class ShaderProgram {
   attrNor: number;
   attrCol: number;
 
+  unifTick: WebGLUniformLocation;
   unifModel: WebGLUniformLocation;
   unifModelInvTr: WebGLUniformLocation;
   unifViewProj: WebGLUniformLocation;
@@ -44,10 +45,18 @@ class ShaderProgram {
     this.attrPos = gl.getAttribLocation(this.prog, "vs_Pos");
     this.attrNor = gl.getAttribLocation(this.prog, "vs_Nor");
     this.attrCol = gl.getAttribLocation(this.prog, "vs_Col");
+    this.unifTick       = gl.getUniformLocation(this.prog, "u_Tick");
     this.unifModel      = gl.getUniformLocation(this.prog, "u_Model");
     this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
     this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
     this.unifColor      = gl.getUniformLocation(this.prog, "u_Color");
+  }
+
+  setTick(tick: GLfloat){
+    this.use();
+    if(this.unifTick !== -1) {
+      gl.uniform1f(this.unifTick, tick);
+    }
   }
 
   use() {
