@@ -5,6 +5,21 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## Results
+<p align="center">
+<img align="center" width="550" height="500" src="5660HW0.gif">
+</p>
+
+Features:
+
+- Added cube geometry.
+
+- Added DAT control, allowing free setting of the cube's initial color.
+
+- Implemented a custom vertex shader where all cube vertices change position along a sine wave over time.
+
+- Implemented a custom fragment shader where the cube's surface color is linearly interpolated between the initial color and RGB(0, 0, 0), with the interpolation factor determined by 3D Perlin Noise, which takes vertex position and time as input.
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
