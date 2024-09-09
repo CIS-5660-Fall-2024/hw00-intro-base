@@ -15,7 +15,7 @@ import TesCube from './geometry/TesTest';
 const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
-  Color: [255, 0, 255],
+  Color: [100, 150, 255],
 };
 
 let icosphere: Icosphere;
@@ -123,8 +123,8 @@ function main() {
     renderer.render(camera, custom, [ // Change shaders
       // icosphere,
       //square, square2, square3
-      cube
-      //tesCube
+      //cube
+      tesCube
     ]);
     stats.end();
     renderer.setTime(time, custom);

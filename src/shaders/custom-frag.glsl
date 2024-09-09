@@ -58,8 +58,8 @@ void main()
     float ambientTerm = 0.2;
     float lightIntensity = diffuseTerm + ambientTerm;   
 
-    out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);
+    //out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);
 
-    //out_Col = vec4(diffuseColor.rgb, 1);
+    out_Col = vec4(diffuseColor.rgb, 1.0);
 
 }

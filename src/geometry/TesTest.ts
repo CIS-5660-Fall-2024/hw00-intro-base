@@ -16,114 +16,169 @@ class TesCube extends Drawable {
   }
 
   create() {
+    let inSize = this.size;
+    let outSize = this.size * 2.0;
     // triangle indeices
-    this.indices = new Uint32Array([
-      // Outer cube faces (similar to the cube you have)
-      0, 1, 2, 0, 2, 3,    // front
-      4, 5, 6, 4, 6, 7,    // top
-      8, 9, 10, 8, 10, 11, // right
-      12, 13, 14, 12, 14, 15, // left
-      16, 17, 18, 16, 18, 19, // bottom
-      20, 21, 22, 20, 22, 23, // back
-  
-      // Inner cube faces (inverted to form the hole)
-      24, 25, 26, 24, 26, 27,    // front inner face
-      28, 29, 30, 28, 30, 31,    // top inner face
-      32, 33, 34, 32, 34, 35,    // right inner face
-      36, 37, 38, 36, 38, 39,    // left inner face
-      40, 41, 42, 40, 42, 43,    // bottom inner face
-      44, 45, 46, 44, 46, 47     // back inner face
-    ]);
-  
+    this.indices = new Uint32Array([0, 1, 2, 0, 2, 3, // top in
+                                    4, 5, 6, 4, 6, 7, // right in 
+                                    8, 9, 10, 8, 10, 11, // left in 
+                                    12, 13, 14, 12, 14, 15, // bot in
+
+                                    16, 17, 18, 16, 18, 19, // top out
+                                    20, 21, 22, 20, 22, 23, // right out
+                                    24, 25, 26, 24, 26, 27, // left out 
+                                    28, 29, 30, 28, 30, 31, // bot out
+
+                                    32, 33, 34, 32, 34, 35, // front join
+                                    36, 37, 38, 36, 38, 39,
+                                    40, 41, 42, 40, 42, 43,
+                                    44, 45, 46, 44, 46, 47,
+
+                                    48, 49, 50, 48, 50, 51, // back join
+                                    52, 53, 54, 52, 54, 55,
+                                    56, 57, 58, 56, 58, 59,
+                                    60, 61, 62, 60, 62, 63
+
+
+                                    ]); 
 
     // face normals                               
-    this.normals = new Float32Array([
-      // Outer normals (same as your original cube)
-      0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, // front
-      0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, // top
-      1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, // right
-      -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, // left
-      0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, // bottom
-      0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, // back
-  
-      // Inner normals (opposite direction to point inward)
-      0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, // front inner face
-      0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, // top inner face
-      -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, // right inner face
-      1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0,    // left inner face
-      0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,    // bottom inner face
-      0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1     // back inner face
-    ]);
-  
+    this.normals = new Float32Array([ 0, 1, 0, 0, // top in
+                                      0, 1, 0, 0,
+                                      0, 1, 0, 0,
+                                      0, 1, 0, 0, 
+
+                                      1, 0, 0, 0,  // right in
+                                      1, 0, 0, 0,
+                                      1, 0, 0, 0,
+                                      1, 0, 0, 0, 
+
+                                      -1, 0, 0, 0, // left in
+                                      -1, 0, 0, 0,
+                                      -1, 0, 0, 0,
+                                      -1, 0, 0, 0, 
+
+                                      0, -1, 0, 0, // bot in
+                                      0, -1, 0, 0,
+                                      0, -1, 0, 0,
+                                      0, -1, 0, 0,
+
+                                      0, -1, 0, 0, // top out
+                                      0, -1, 0, 0,
+                                      0, -1, 0, 0,
+                                      0, -1, 0, 0, 
+
+                                      -1, 0, 0, 0,  // right out
+                                      -1, 0, 0, 0,
+                                      -1, 0, 0, 0,
+                                      -1, 0, 0, 0, 
+
+                                      1, 0, 0, 0, // left out
+                                      1, 0, 0, 0,
+                                      1, 0, 0, 0,
+                                      1, 0, 0, 0, 
+
+                                      0, 1, 0, 0, // bot out
+                                      0, 1, 0, 0,
+                                      0, 1, 0, 0,
+                                      0, 1, 0, 0,
+
+                                      0, 0, 1, 0, // front join
+                                      0, 0, 1, 0,
+                                      0, 0, 1, 0,
+                                      0, 0, 1, 0,
+
+                                      0, 0, -1, 0, // back join
+                                      0, 0, -1, 0,
+                                      0, 0, -1, 0,
+                                      0, 0, -1, 0
+                                    
+                                    ]); 
     
-    // vertex positions, yeah yeah i know it looks ugly but...    
-    let outerSize = 1.0;  
-    let innerSize = 0.4;                            
-    this.positions = new Float32Array([
-      // Outer cube vertices
-      -outerSize, -outerSize, outerSize, 1,   // front
-      outerSize, -outerSize, outerSize, 1,
-      outerSize, outerSize, outerSize, 1,
-      -outerSize, outerSize, outerSize, 1,
-  
-      -outerSize, outerSize, outerSize, 1,   // top
-      outerSize, outerSize, outerSize, 1,
-      outerSize, outerSize, -outerSize, 1,
-      -outerSize, outerSize, -outerSize, 1,
-  
-      outerSize, -outerSize, outerSize, 1,   // right
-      outerSize, -outerSize, -outerSize, 1,
-      outerSize, outerSize, -outerSize, 1,
-      outerSize, outerSize, outerSize, 1,
-  
-      -outerSize, -outerSize, outerSize, 1,  // left
-      -outerSize, -outerSize, -outerSize, 1,
-      -outerSize, outerSize, -outerSize, 1,
-      -outerSize, outerSize, outerSize, 1,
-  
-      -outerSize, -outerSize, outerSize, 1,  // bottom
-      outerSize, -outerSize, outerSize, 1,
-      outerSize, -outerSize, -outerSize, 1,
-      -outerSize, -outerSize, -outerSize, 1,
-  
-      -outerSize, -outerSize, -outerSize, 1, // back
-      outerSize, -outerSize, -outerSize, 1,
-      outerSize, outerSize, -outerSize, 1,
-      -outerSize, outerSize, -outerSize, 1,
-  
-      // Inner cube (subtracted from the outer cube)
-      -innerSize, -innerSize, innerSize, 1,  // front inner face
-      innerSize, -innerSize, innerSize, 1,
-      innerSize, innerSize, innerSize, 1,
-      -innerSize, innerSize, innerSize, 1,
-  
-      -innerSize, innerSize, innerSize, 1,   // top inner face
-      innerSize, innerSize, innerSize, 1,
-      innerSize, innerSize, -innerSize, 1,
-      -innerSize, innerSize, -innerSize, 1,
-  
-      innerSize, -innerSize, innerSize, 1,   // right inner face
-      innerSize, -innerSize, -innerSize, 1,
-      innerSize, innerSize, -innerSize, 1,
-      innerSize, innerSize, innerSize, 1,
-  
-      -innerSize, -innerSize, innerSize, 1,  // left inner face
-      -innerSize, -innerSize, -innerSize, 1,
-      -innerSize, innerSize, -innerSize, 1,
-      -innerSize, innerSize, innerSize, 1,
-  
-      -innerSize, -innerSize, innerSize, 1,  // bottom inner face
-      innerSize, -innerSize, innerSize, 1,
-      innerSize, -innerSize, -innerSize, 1,
-      -innerSize, -innerSize, -innerSize, 1,
-  
-      -innerSize, -innerSize, -innerSize, 1, // back inner face
-      innerSize, -innerSize, -innerSize, 1,
-      innerSize, innerSize, -innerSize, 1,
-      -innerSize, innerSize, -innerSize, 1
-    ]);
-  
-  
+    // vertex positions, yeah yeah i know it looks ugly but...                                  
+    this.positions = new Float32Array([ -inSize, inSize, inSize, 1, // top in
+                                        inSize, inSize, inSize, 1,
+                                        inSize, inSize, -inSize, 1,
+                                        -inSize, inSize, -inSize, 1,
+
+                                        inSize, -inSize, inSize, 1, // right in
+                                        inSize, -inSize, -inSize, 1, 
+                                        inSize, inSize, -inSize, 1,
+                                        inSize, inSize, inSize, 1,
+
+                                        -inSize, -inSize, inSize, 1, // left in
+                                        -inSize, -inSize, -inSize, 1,
+                                        -inSize, inSize, -inSize, 1,
+                                        -inSize, inSize, inSize, 1,
+
+                                        -inSize, -inSize, inSize, 1, // bottom in
+                                        inSize, -inSize, inSize, 1, 
+                                        inSize, -inSize, -inSize, 1,
+                                        -inSize, -inSize, -inSize, 1,
+
+
+                                        -outSize, outSize, outSize, 1, // top out
+                                        outSize, outSize, outSize, 1,
+                                        outSize, outSize, -outSize, 1,
+                                        -outSize, outSize, -outSize, 1,
+    
+                                        outSize, -outSize, outSize, 1, // right out
+                                        outSize, -outSize, -outSize, 1, 
+                                        outSize, outSize, -outSize, 1,
+                                        outSize, outSize, outSize, 1,
+    
+                                        -outSize, -outSize, outSize, 1, // left out
+                                        -outSize, -outSize, -outSize, 1,
+                                        -outSize, outSize, -outSize, 1,
+                                        -outSize, outSize, outSize, 1,
+    
+                                        -outSize, -outSize, outSize, 1, // bottom out
+                                        outSize, -outSize, outSize, 1, 
+                                        outSize, -outSize, -outSize, 1,
+                                        -outSize, -outSize, -outSize, 1,
+
+
+                                        -outSize, -outSize, outSize, 1, // front join
+                                        outSize, -outSize, outSize, 1,
+                                        inSize, -inSize, inSize, 1,
+                                        -inSize, -inSize, inSize, 1,
+
+                                        outSize, -outSize, outSize, 1,
+                                        outSize, outSize, outSize, 1,
+                                        inSize, inSize, inSize, 1,
+                                        inSize, -inSize, inSize, 1,
+
+                                        outSize, outSize, outSize, 1,
+                                        -outSize, outSize, outSize, 1,
+                                        -inSize, inSize, inSize, 1,
+                                        inSize, inSize, inSize, 1,
+
+                                        -outSize, outSize, outSize, 1,
+                                        -outSize, -outSize, outSize, 1,
+                                        -inSize, -inSize, inSize, 1,
+                                        -inSize, inSize, inSize, 1,
+
+                                        -outSize, -outSize, -outSize, 1, // back join
+                                        outSize, -outSize, -outSize, 1,
+                                        inSize, -inSize, -inSize, 1,
+                                        -inSize, -inSize, -inSize, 1,
+
+                                        outSize, -outSize, -outSize, 1,
+                                        outSize, outSize, -outSize, 1,
+                                        inSize, inSize, -inSize, 1,
+                                        inSize, -inSize, -inSize, 1,
+
+                                        outSize, outSize, -outSize, 1,
+                                        -outSize, outSize, -outSize, 1,
+                                        -inSize, inSize, -inSize, 1,
+                                        inSize, inSize, -inSize, 1,
+
+                                        -outSize, outSize, -outSize, 1,
+                                        -outSize, -outSize, -outSize, 1,
+                                        -inSize, -inSize, -inSize, 1,
+                                        -inSize, inSize, -inSize, 1
+                                      ]);
+
                                       
 
     this.generateIdx();
