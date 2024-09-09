@@ -8,6 +8,7 @@ import OpenGLRenderer from './rendering/gl/OpenGLRenderer';
 import Camera from './Camera';
 import {setGL} from './globals';
 import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
+import TesCube from './geometry/TesTest';
 
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
@@ -23,6 +24,7 @@ let square2: Square;
 let square3: Square;
 let cube: Cube;
 let cube2: Cube;
+let tesCube: TesCube;
 let prevTesselations: number = 5;
 let prevColor: number[] = [255, 0, 255];
 let time = 0;
@@ -42,6 +44,10 @@ function loadScene() {
   cube.create();
   cube2 = new Cube(vec3.fromValues(0,0,0), 2); // adjust side length as needed
   cube2.create();
+
+  tesCube = new TesCube(vec3.fromValues(0,0,0), 1);
+  tesCube.create();
+  
 }
 
 function main() {
@@ -118,6 +124,7 @@ function main() {
       // icosphere,
       //square, square2, square3
       cube
+      //tesCube
     ]);
     stats.end();
     renderer.setTime(time, custom);

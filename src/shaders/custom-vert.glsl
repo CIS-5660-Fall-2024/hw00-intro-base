@@ -32,9 +32,9 @@ void main()
     
     vec4 pos = vs_Pos;
     // Possibly use ease function 
-    pos.z = vs_Pos.z + cos(u_Time * 0.01) * 0.6;
-    pos.y = vs_Pos.y * (sin(u_Time * 0.01) * 0.3) + (vs_Pos.y * 0.6);
-    pos.x = vs_Pos.x * (sin(u_Time * 0.01) * 0.3) + (vs_Pos.x * 0.6);
+    pos.z = cos(u_Time * 0.01 + (vs_Pos.z * 3.141592 * 0.5)) * 0.6;
+    pos.y = vs_Pos.y * (sin(u_Time * 0.01 + (vs_Pos.z * 3.141592 * 0.5)) * 0.3) + (vs_Pos.y * 0.6);
+    pos.x = vs_Pos.x * (sin(u_Time * 0.01 + (vs_Pos.z * 3.141592 * 0.5)) * 0.3) + (vs_Pos.x * 0.6);
 
     float tz = vs_Pos.z * (cos(u_Time * 0.01));
     float ty = 1.0;
