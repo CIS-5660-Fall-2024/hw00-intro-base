@@ -60,6 +60,6 @@ void main()
 
     //out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);
 
-    out_Col = vec4(diffuseColor.rgb, 1.0);
+    out_Col = vec4(diffuseColor.rgb, 0.8);
 
 }

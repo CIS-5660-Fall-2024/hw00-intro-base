@@ -138,27 +138,7 @@ class TesCube extends Drawable {
                                         -outSize, -outSize, -outSize, 1,
 
 
-                                        -outSize, -outSize, outSize, 1, // front join
-                                        outSize, -outSize, outSize, 1,
-                                        inSize, -inSize, inSize, 1,
-                                        -inSize, -inSize, inSize, 1,
-
-                                        outSize, -outSize, outSize, 1,
-                                        outSize, outSize, outSize, 1,
-                                        inSize, inSize, inSize, 1,
-                                        inSize, -inSize, inSize, 1,
-
-                                        outSize, outSize, outSize, 1,
-                                        -outSize, outSize, outSize, 1,
-                                        -inSize, inSize, inSize, 1,
-                                        inSize, inSize, inSize, 1,
-
-                                        -outSize, outSize, outSize, 1,
-                                        -outSize, -outSize, outSize, 1,
-                                        -inSize, -inSize, inSize, 1,
-                                        -inSize, inSize, inSize, 1,
-
-                                        -outSize, -outSize, -outSize, 1, // back join
+                                        -outSize, -outSize, -outSize, 1, // front join
                                         outSize, -outSize, -outSize, 1,
                                         inSize, -inSize, -inSize, 1,
                                         -inSize, -inSize, -inSize, 1,
@@ -176,7 +156,27 @@ class TesCube extends Drawable {
                                         -outSize, outSize, -outSize, 1,
                                         -outSize, -outSize, -outSize, 1,
                                         -inSize, -inSize, -inSize, 1,
-                                        -inSize, inSize, -inSize, 1
+                                        -inSize, inSize, -inSize, 1,
+
+                                        -outSize, -outSize, outSize, 1, // back join
+                                        outSize, -outSize, outSize, 1,
+                                        inSize, -inSize, inSize, 1,
+                                        -inSize, -inSize, inSize, 1,
+
+                                        outSize, -outSize, outSize, 1,
+                                        outSize, outSize, outSize, 1,
+                                        inSize, inSize, inSize, 1,
+                                        inSize, -inSize, inSize, 1,
+
+                                        outSize, outSize, outSize, 1,
+                                        -outSize, outSize, outSize, 1,
+                                        -inSize, inSize, inSize, 1,
+                                        inSize, inSize, inSize, 1,
+
+                                        -outSize, outSize, outSize, 1,
+                                        -outSize, -outSize, outSize, 1,
+                                        -inSize, -inSize, inSize, 1,
+                                        -inSize, inSize, inSize, 1
                                       ]);
 
                                       

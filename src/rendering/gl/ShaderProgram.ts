@@ -11,6 +11,10 @@ export class Shader {
     this.shader = gl.createShader(type);
     gl.shaderSource(this.shader, source);
     gl.compileShader(this.shader);
+    
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
 
     if (!gl.getShaderParameter(this.shader, gl.COMPILE_STATUS)) {
       throw gl.getShaderInfoLog(this.shader);
@@ -34,6 +38,7 @@ class ShaderProgram {
 
   constructor(shaders: Array<Shader>) {
     this.prog = gl.createProgram();
+    
 
     for (let shader of shaders) {
       gl.attachShader(this.prog, shader.shader);
