@@ -177,3 +177,5 @@ class Icosphere extends Drawable {
 };
 
 export default Icosphere;
+
+
