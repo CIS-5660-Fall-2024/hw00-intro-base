@@ -46,3 +46,4 @@ class Square extends Drawable {
 
 export default Square;
 
+
