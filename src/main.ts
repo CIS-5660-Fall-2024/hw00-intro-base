@@ -14,6 +14,7 @@ import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
   tesselations: 5,
+  transparency: 0,
   'Load Scene': loadScene, // A function pointer, essentially
 };
 
@@ -22,6 +23,7 @@ let square: Square;
 let cube: Cube;
 let prevTesselations: number = 5;
 let prevColor1: number[] = [ 0, 128, 255 ];
+let time: number = 0;
 
 function loadScene() {
   icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
@@ -34,6 +36,7 @@ function loadScene() {
 
 function main() {
   // Initial display for framerate
+
   const stats = Stats();
   stats.setMode(0);
   stats.domElement.style.position = 'absolute';
@@ -42,8 +45,8 @@ function main() {
   document.body.appendChild(stats.domElement);
   
   // references to the dat.gui example
-  var colors = {
-    col1: [ 0, 128, 255 ], // RGB array
+  var colors = { 
+    col1: [ 128, 128, 255 ], // RGB array
   };
 
 
@@ -52,6 +55,7 @@ function main() {
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
   gui.addColor(colors, 'col1');
+  gui.add(controls, 'transparency', 0, 1);
   var outColor = vec4.fromValues(colors.col1[0]/255,colors.col1[1]/255,colors.col1[2]/255,1);
 
   // get canvas and webgl context
@@ -78,8 +82,17 @@ function main() {
     new Shader(gl.FRAGMENT_SHADER, require('./shaders/lambert-frag.glsl')),
   ]);
 
+  const custom = new ShaderProgram([
+    new Shader(gl.VERTEX_SHADER, require('./shaders/custom-vert.glsl')),
+    new Shader(gl.FRAGMENT_SHADER, require('./shaders/custom-frag.glsl')),
+  ]);
+
+  const currentShader = custom;
+
   // This function will be called every frame
   function tick() {
+    time++;
+
     camera.update();
     stats.begin();
     gl.viewport(0, 0, window.innerWidth, window.innerHeight);
@@ -95,15 +108,20 @@ function main() {
     if(colors.col1 != prevColor1){
       prevColor1 = colors.col1;
       outColor = vec4.fromValues(colors.col1[0]/255,colors.col1[1]/255,colors.col1[2]/255,1);
-      lambert.setGeometryColor(outColor);
+      currentShader.setGeometryColor(outColor);
     }
-  
 
-    renderer.render(camera, lambert, [
+    currentShader.setTime(time);
+
+    // Enable transparency
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    renderer.render(camera, currentShader, [
       icosphere,
       // square,
       // cube,
-    ],outColor);
+    ],outColor, controls.transparency);
     stats.end();
 
     // Tell the browser to call `tick` again whenever it renders a new frame
