@@ -24,6 +24,10 @@ class OpenGLRenderer {
     this.canvas.height = height;
   }
 
+  setTime(time: number, prog: ShaderProgram) {
+    prog.setTime(time);
+  }
+
   clear() {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   }
@@ -38,6 +42,7 @@ class OpenGLRenderer {
     prog.setModelMatrix(model);
     prog.setViewProjMatrix(viewProj);
     prog.setGeometryColor(color);
+   
 
     for (let drawable of drawables) {
       prog.draw(drawable);

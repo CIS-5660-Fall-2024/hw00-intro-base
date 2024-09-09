@@ -22,6 +22,7 @@ let square: Square;
 let cube: Cube;
 let prevTesselations: number = 5;
 let prevColor: number[] = [255, 0, 255];
+let time = 0;
 
 function loadScene() {
   icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
@@ -74,7 +75,7 @@ function main() {
   ]);
 
   const custom = new ShaderProgram([
-      new Shader(gl.VERTEX_SHADER, require('./shaders/lambert-vert.glsl')), // STILL LAMBERT
+      new Shader(gl.VERTEX_SHADER, require('./shaders/custom-vert.glsl')), 
       new Shader(gl.FRAGMENT_SHADER, require('./shaders/custom-frag.glsl')),
   ]);
 
@@ -84,6 +85,7 @@ function main() {
     stats.begin();
     gl.viewport(0, 0, window.innerWidth, window.innerHeight);
     renderer.clear();
+    
     if(controls.tesselations != prevTesselations)
     {
       prevTesselations = controls.tesselations;
@@ -105,7 +107,8 @@ function main() {
       cube,
     ]);
     stats.end();
-
+    renderer.setTime(time, custom);
+    time++;
     // Tell the browser to call `tick` again whenever it renders a new frame
     requestAnimationFrame(tick);
   }
