@@ -5,6 +5,7 @@ uniform vec4 u_Color;
 in vec4 fs_Nor;
 in vec4 fs_LightVec;
 in vec4 fs_Col;
+in vec4 fs_Pos;
 in float fs_Time;
 
 out vec4 out_Col; 
@@ -17,7 +18,7 @@ out vec4 out_Col;
 
 vec3 random3(vec3 p) {
     return fract(vec3(dot(p, vec3(113.48875, 2311.7, 592.123)),
-                       dot(p, vec3(113.48875, 2311.7, 14212.22)),
+                       dot(p, vec3(931.215, 2531.737, 14212.22)),
                        dot(p, vec3(6421.253, 46123.73, 83.11))));
 
 }
@@ -27,7 +28,7 @@ float fit(float var, float imin, float imax, float omin, float omax) {
 }
 
 float WorleyNoise3D(vec3 pos) {
-    pos *= 0.01; // Now the space is 10x10 instead of 1x1. Change this to any number you want.
+    pos *= 0.6; // Now the space is 10x10 instead of 1x1. Change this to any number you want.
     vec3 posInt = floor(pos);
     vec3 posFract = fract(pos);
     float minDist = 1.0; // Minimum distance initialized to max.
@@ -47,15 +48,18 @@ float WorleyNoise3D(vec3 pos) {
 
 void main()
 {   
-    float noise = fit(mod(WorleyNoise3D(vec3(gl_FragCoord.xyz)) + fs_Time * 0.001, 0.11), 0.0, 0.1, 0.0, 1.0);
+    // WorleyNoise3D(gl_FragCoord.xyz * 0.6 + fs_Time * 0.2)
+    float baseNoise = fit(mod(WorleyNoise3D(vec3(fs_Pos.xyz) + fs_Time * 0.0001) + fs_Time * 0.001, 0.11), 0.0, 0.1, 0.0, 1.0);
+    float MinNoise = 1.0 - baseNoise;
+    float noise = max(baseNoise, MinNoise);
     vec4 diffuseColor = vec4(noise, noise, noise, 1.0) * u_Color;
 
     float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));
     float ambientTerm = 0.2;
     float lightIntensity = diffuseTerm + ambientTerm;   
 
-    //out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);
+    out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);
 
-    out_Col = vec4(diffuseColor.rgb, 1);
+    //out_Col = vec4(diffuseColor.rgb, 1);
 
 }

@@ -19,7 +19,10 @@ const controls = {
 
 let icosphere: Icosphere;
 let square: Square;
+let square2: Square;
+let square3: Square;
 let cube: Cube;
+let cube2: Cube;
 let prevTesselations: number = 5;
 let prevColor: number[] = [255, 0, 255];
 let time = 0;
@@ -27,10 +30,18 @@ let time = 0;
 function loadScene() {
   icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
   icosphere.create();
+
   square = new Square(vec3.fromValues(0, 0, 0));
   square.create();
+  square2 = new Square(vec3.fromValues(0, 0, 0.4));
+  square2.create();
+  square3 = new Square(vec3.fromValues(0, 0, 0.8));
+  square3.create();
+
   cube = new Cube(vec3.fromValues(0,0,0), 1); // adjust side length as needed
   cube.create();
+  cube2 = new Cube(vec3.fromValues(0,0,0), 2); // adjust side length as needed
+  cube2.create();
 }
 
 function main() {
@@ -98,13 +109,15 @@ function main() {
       renderer.setObjColor(controls.Color[0] / 255, controls.Color[1] / 255, controls.Color[2] / 255, 1);
       cube = new Cube(vec3.fromValues(0, 0, 0), 1);
       cube.create();
+      cube2 = new Cube(vec3.fromValues(0, 0, 0), 2);
+      cube2.create();
     }
     
     // CHANGE WHAT IS RENDERED HERE
     renderer.render(camera, custom, [ // Change shaders
       // icosphere,
-      // square,
-      cube,
+      //square, square2, square3
+      cube
     ]);
     stats.end();
     renderer.setTime(time, custom);
