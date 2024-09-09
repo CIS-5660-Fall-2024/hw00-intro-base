@@ -48,7 +48,7 @@ class ShaderProgram {
     this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
     this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
     this.unifColor      = gl.getUniformLocation(this.prog, "u_Color");
-    this.unifTime       = gl.getUniformLocation(this.prog, "u_time"); 
+    this.unifTime       = gl.getUniformLocation(this.prog, "u_time");
   }
 
   use() {
@@ -115,3 +115,4 @@ class ShaderProgram {
 };
 
 export default ShaderProgram;
+

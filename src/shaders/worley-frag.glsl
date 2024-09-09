@@ -49,7 +49,7 @@ float WorleyNoise(vec3 uv) {
                 float dist = length(diff); // Euclidean distance
                 minDist = min(minDist, dist); // Store the smallest distance
             }
-        } 
+        }
     }
 
     return minDist; // Return the minimum distance to the closest point
@@ -66,3 +66,4 @@ void main()
     // Set final output color
     out_Col = vec4(color, u_Color.a);
 }
+
