@@ -66,10 +66,23 @@ To check if everything is on the right track:
 3. Submit the link to your pull request on Canvas, and add a comment to your submission with a hyperlink to your live demo.
 4. Include a link to your live site.
 
+## Jeff's Submission Details
+### Additions made
+1. Created cube drawable and defaulted the program to render it.
+2. Enabled selection of custom color via color picker, to change the color of the cube
+3. Updated lambert-frag.glsl to render Worley/Voronoi noise as a multiplier to the chosen color
+4. Added sine-based displacement over time to the cube so it non-uniformly contracts and expands.
+
+[Live Site Link](https://jeff-mostyn.github.io/hw00-intro-base/)
+
+<p align="center">
+  <img src="./images/sampleImage1.JPG">
+</p>
+
 ## Resources
 - Javascript modules https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
 - Typescript https://www.typescriptlang.org/docs/home.html
-- dat.gui https://workshop.chromeexperiments.com/examples/gui/
+- dat.gui https://github.com/dataarts/dat.gui
 - glMatrix http://glmatrix.net/docs/
 - WebGL
   - Interfaces https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API
