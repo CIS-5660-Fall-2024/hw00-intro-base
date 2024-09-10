@@ -22,6 +22,9 @@ Description
  - Implemented Fractal Brownian Motion function based on Perlin noise
  - Generated noise fluctuates over time
  - Inteporlate between background color and geometry color to achieve the effect of smooth fusion of the object and the background
+- main.ts
+  - color can be modified with the palette
+  - transparency of the geometry can be modified with the slide 
 
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
