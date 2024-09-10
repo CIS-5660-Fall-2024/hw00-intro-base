@@ -9,7 +9,7 @@
 
 ## Description
 
-Link to Live Demo:
+[Link to Live Demo](https://katherli.github.io/hw00-intro-base/)
 
 https://github.com/user-attachments/assets/c8ac52d0-67ea-4748-9080-40463bf32281
 
