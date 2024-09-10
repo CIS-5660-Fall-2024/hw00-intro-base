@@ -7,20 +7,7 @@
 - Change the scale to adjust the percentage of noise influence.
 - Change the speed to speed up or slow down the beating frequency.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### --------------------------------------------------------------------------------------------------------------------------------------------
+#### -------------------------------------------------------------------------------------------------------------------------------------
 # HW 0: Intro to Javascript and WebGL
 
 <p align="center">
