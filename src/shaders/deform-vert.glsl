@@ -30,8 +30,25 @@ out vec4 fs_LightVec;       // The direction in which our virtual light lies, re
 out vec4 fs_Col;            // The color of each vertex. This is implicitly passed to the fragment shader.
 out vec4 fs_Pos;
 
+uniform float u_Time;
+
 const vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of
                                         //the geometry in the fragment shader.
+
+float easeOutBounce(float x) {
+    float n1 = 7.5625;
+    float d1 = 2.75;
+
+    if (x < 1.0 / d1) {
+        return n1 * x * x;
+    } else if (x < 2.0 / d1) {
+        return n1 * (x - 1.5 / d1) * (x - 1.5 / d1) + 0.75;
+    } else if (x < 2.5 / d1) {
+        return n1 * (x - 2.25 / d1) * (x - 2.25 / d1) + 0.9375;
+    } else {
+        return n1 * (x - 2.625 / d1) * (x - 2.625 / d1) + 0.984375;
+    }
+}
 
 void main()
 {
@@ -49,6 +66,19 @@ void main()
     vec4 modelposition = u_Model * vs_Pos;   // Temporarily store the transformed vertex positions for use below
 
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
+
+    float t = easeOutBounce(abs(sin(u_Time)))/2.0;
+
+    float wobble1 = easeOutBounce(abs(sin(u_Time + vs_Pos.y * 2.0 + vs_Pos.x * 3.0)));
+    float wobble2 = easeOutBounce(abs(sin(u_Time + vs_Pos.y * 2.0 + vs_Pos.x * 3.0)));
+    float wobble3 = easeOutBounce(abs(sin(u_Time - vs_Pos.y * 2.0 - vs_Pos.x * 3.0)));
+    
+    vec3 modifiedPosition = vs_Pos.xyz;
+    modifiedPosition.x += normalize(vs_Pos.xyz).x * wobble1;
+    modifiedPosition.y += normalize(vs_Pos.xyz).y * wobble2;
+    modifiedPosition.z += normalize(vs_Pos.xyz).z * wobble3;
+
+    modelposition.xyz = mix(modelposition.xyz, normalize(modelposition.xyz) * 3.0, wobble3)/2.0;
 
     gl_Position = u_ViewProj * modelposition;// gl_Position is a built-in variable of OpenGL which is
                                              // used to render the final positions of the geometry's vertices
