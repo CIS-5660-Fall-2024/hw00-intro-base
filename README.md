@@ -6,24 +6,24 @@
 <p align="center">(source: Ken Perlin)</p>
 
 ## Result
-[Live demo](https://annieqiuuu.github.io/hw00-intro-base/) 
+### [Live demo](https://annieqiuuu.github.io/hw00-intro-base/) 
 
-Geometry: icosphere
+### Geometry: icosphere
 ![](Output.gif)
 
-Geometry: cube
+### Geometry: cube
 ![](OutputCube.gif)
 
-Description
+### Description
 - vert.glsl: 
   - Introduce the u_Time as the increment variable
   - Use sin function to distort the vertex postition to make it swing according to time
 - frag.glsl
- - Introduce the u_Time as the increment variable
- - Introduce the u_Transparency to control the transparency of the geometry
- - Implemented Fractal Brownian Motion function based on Perlin noise
- - Generated noise fluctuates over time
- - Inteporlate between background color and geometry color to achieve the effect of smooth fusion of the object and the background
+  - Introduce the u_Time as the increment variable
+  - Introduce the u_Transparency to control the transparency of the geometry
+  - Implemented Fractal Brownian Motion function based on Perlin noise
+  - Generated noise fluctuates over time
+  - Inteporlate between background color and geometry color to achieve the effect of smooth fusion of the object and the background
 - main.ts
   - color can be modified with the palette
   - transparency of the geometry can be modified with the slide 
