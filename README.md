@@ -5,6 +5,29 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## Result
+### [Live demo](https://annieqiuuu.github.io/hw00-intro-base/) 
+
+### Geometry: icosphere
+![](Output.gif)
+
+### Geometry: cube
+![](OutputCube.gif)
+
+### Description
+- vert.glsl: 
+  - Introduce the u_Time as the increment variable
+  - Use sin function to distort the vertex postition to make it swing according to time
+- frag.glsl
+  - Introduce the u_Time as the increment variable
+  - Introduce the u_Transparency to control the transparency of the geometry
+  - Implemented Fractal Brownian Motion function based on Perlin noise
+  - Generated noise fluctuates over time
+  - Inteporlate between background color and geometry color to achieve the effect of smooth fusion of the object and the background
+- main.ts
+  - color can be modified with the palette
+  - transparency of the geometry can be modified with the slide 
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
@@ -13,7 +36,7 @@
 ## Forking the Code
 Rather than cloning the homework repository, please __fork__ the code into your own repository using the `Fork` button in the upper-right hand corner of the Github UI. This will enable you to have your own personal repository copy of the code, and let you make a live demo (described later in this document).
 
-## Running the Code
+## Running the Code 
 
 1. [Install Node.js](https://nodejs.org/en/download/). Node.js is a JavaScript runtime. It basically allows you to run JavaScript when not in a browser. For our purposes, this is not necessary. The important part is that with it comes `npm`, the Node Package Manager. This allows us to easily declare and install external dependencies such as [dat.GUI](https://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage), and [glMatrix](http://glmatrix.net/).
 
