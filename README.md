@@ -5,7 +5,13 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
-## TEST
+## Description
+
+Link to Live Demo:
+
+https://github.com/user-attachments/assets/3f2c3847-c346-404c-a45e-1b79ed001c11
+
+I referenced the Square class to create my Cube class's positions, indices, and normals. I then followed the documentation for dat.gui to create my color picker. My custom fragment shader uses 3D Perlin Noise values based on the fragment's position and a time-based offset to blend the chosen color with its complementary color. The noise controls how much of each color is applied to create a moving gradient effect across the cube surface. My custom vertex shader uses different trigonometric functions to modify each vertex's x, y, and z values over time to create a growing and shrinking effect.
 
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
