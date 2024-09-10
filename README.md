@@ -5,6 +5,18 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## Live Demo
+ - Also available at [Live demo on webpage](https://cwncwncwn.github.io/CIS566-hw00-intro-base/)
+
+ ![](/live_demo.gif)
+
+## Project Features
+- Custom shaders with the use of 3D noise functions and time curve.
+    - Vertex Shader: causing the deformation of the object.
+    - Fragment Shader: controlling fragment color of the object. 
+- GUI
+    - Color palatte to adjust the base color of the object.
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
