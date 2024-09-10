@@ -1,5 +1,17 @@
 # HW 0: Intro to Javascript and WebGL
 
+## Name: Zhen Ren
+[Live Demo](https://zhiqing-r.github.io/hw00-intro-base/)
+
+![](result.gif)
+
+## Features
+- Implemented a cube class and added it to the scene.
+- Added a color control to the GUI.
+- Implemented worley noise function and use it to affect color.
+- Custom vertex and fragment shaders to animate the cube.
+
+
 <p align="center">
   <img width="360" height="360" src="https://user-images.githubusercontent.com/1758825/132532354-e3a45402-e484-499e-bfa7-2d73b9f2c946.png">
 </p>
@@ -66,6 +78,7 @@ To check if everything is on the right track:
 3. Submit the link to your pull request on Canvas, and add a comment to your submission with a hyperlink to your live demo.
 4. Include a link to your live site.
 
+
 ## Resources
 - Javascript modules https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
 - Typescript https://www.typescriptlang.org/docs/home.html
@@ -75,3 +88,4 @@ To check if everything is on the right track:
   - Interfaces https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API
   - Types https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Types
   - Constants https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Constants
+
