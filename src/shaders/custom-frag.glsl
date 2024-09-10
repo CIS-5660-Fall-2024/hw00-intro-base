@@ -23,9 +23,7 @@ vec3 random3(vec3 p) {
 
 }
 
-float fit(float var, float imin, float imax, float omin, float omax) {
-    return (var / (imax - imin)) * (omax - omin);
-}
+
 
 float WorleyNoise3D(vec3 pos) {
     pos *= 0.6; // Now the space is 10x10 instead of 1x1. Change this to any number you want.
@@ -46,20 +44,29 @@ float WorleyNoise3D(vec3 pos) {
     return minDist;
 }
 
+//lerpaderpadoo wahooo
+vec4 lerp(vec4 min, vec4 max, float t) {
+    return min + t * (max - min);
+}
+
+//idk if this is right
+float fit(float var, float imin, float imax, float omin, float omax) {
+    return (var / (imax - imin)) * (omax - omin);
+}
+
 void main()
 {   
     // WorleyNoise3D(gl_FragCoord.xyz * 0.6 + fs_Time * 0.2)
     float baseNoise = fit(mod(WorleyNoise3D(vec3(fs_Pos.xyz) + fs_Time * 0.0001) + fs_Time * 0.001, 0.11), 0.0, 0.1, 0.0, 1.0);
     float MinNoise = 1.0 - baseNoise;
     float noise = max(baseNoise, MinNoise);
-    vec4 diffuseColor = vec4(noise, noise, noise, 1.0) * u_Color;
+    float noise2 = min(baseNoise, MinNoise);
+    float dist = sqrt(fs_Pos.x * fs_Pos.x + fs_Pos.y * fs_Pos.y + fs_Pos.z * fs_Pos.z);
+    vec4 color = lerp(vec4(1.0, 0, 0, 1), u_Color, fit(dist, 0.8, 2.0, 0.0, 1.0));
+    vec4 diffuseColor = vec4(noise, noise, noise, 1.0) * color;
 
-    float diffuseTerm = dot(normalize(fs_Nor), normalize(fs_LightVec));
-    float ambientTerm = 0.2;
-    float lightIntensity = diffuseTerm + ambientTerm;   
+    diffuseColor += vec4(noise2, noise2,noise2, 1.0) * (color * 0.5);
 
-    //out_Col = vec4(diffuseColor.rgb * lightIntensity, diffuseColor.a);
-
-    out_Col = vec4(diffuseColor.rgb, 0.8);
+    out_Col = vec4(diffuseColor.rgb, noise * 0.6);
 
 }

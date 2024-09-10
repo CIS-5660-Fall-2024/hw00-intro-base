@@ -15,7 +15,7 @@ import TesCube from './geometry/TesTest';
 const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
-  Color: [100, 120, 255],
+  Color: [100, 200, 255],
 };
 
 let icosphere: Icosphere;
@@ -83,7 +83,7 @@ function main() {
   const renderer = new OpenGLRenderer(canvas);
 
   renderer.setObjColor(controls.Color[0] / 255, controls.Color[1] / 255, controls.Color[2] / 255, 1);
-  renderer.setClearColor(0.2, 0.2, 0.2, 1);
+  renderer.setClearColor(0, 0, 0, 1);
   gl.enable(gl.DEPTH_TEST);
 
   const lambert = new ShaderProgram([

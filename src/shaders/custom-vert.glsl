@@ -52,7 +52,7 @@ void main()
     } 
 
     // Sets up elipse paths for the points to move along 
-    pos.z = cos(u_Time * 0.01 + (morePos.z * 3.141592 * 0.5) + phaseOffset) * 0.6;
+    pos.z = cos(u_Time * 0.01 + (morePos.z * 3.141592 * 0.5) + phaseOffset) * 0.8;
     pos.y = morePos.y * (sin(u_Time * 0.01 + (morePos.z * 3.141592 * 0.5) + phaseOffset) * 0.3) + (morePos.y * 1.0);
     pos.x = morePos.x * (sin(u_Time * 0.01 + (morePos.z * 3.141592 * 0.5) + phaseOffset) * 0.3) + (morePos.x * 1.0);
 

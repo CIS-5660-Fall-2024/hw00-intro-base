@@ -37,9 +37,12 @@ class TesCube extends Drawable {
                                     48, 49, 50, 48, 50, 51, // back join
                                     52, 53, 54, 52, 54, 55,
                                     56, 57, 58, 56, 58, 59,
-                                    60, 61, 62, 60, 62, 63
+                                    60, 61, 62, 60, 62, 63,
 
-
+                                    64, 65, 66, 64, 66, 67, // front out
+                                    68, 69, 70, 68, 70, 71, // back out
+                                    72, 73, 74, 72, 74, 75, // front in
+                                    76, 77, 78, 76, 78, 79 // back in
                                     ]); 
 
     // face normals                               
@@ -91,6 +94,26 @@ class TesCube extends Drawable {
                                       0, 0, -1, 0, // back join
                                       0, 0, -1, 0,
                                       0, 0, -1, 0,
+                                      0, 0, -1, 0,
+
+                                      0, 0, 1, 0, // front out
+                                      0, 0, 1, 0,
+                                      0, 0, 1, 0,
+                                      0, 0, 1, 0,
+
+                                      0, 0, -1, 0, // back out
+                                      0, 0, -1, 0,
+                                      0, 0, -1, 0,
+                                      0, 0, -1, 0,
+
+                                      0, 0, 1, 0, // front in
+                                      0, 0, 1, 0,
+                                      0, 0, 1, 0,
+                                      0, 0, 1, 0,
+
+                                      0, 0, -1, 0, // back in
+                                      0, 0, -1, 0,
+                                      0, 0, -1, 0,
                                       0, 0, -1, 0
                                     
                                     ]); 
@@ -138,45 +161,66 @@ class TesCube extends Drawable {
                                         -outSize, -outSize, -outSize, 1,
 
 
-                                        -outSize, -outSize, -outSize, 1, // front join
-                                        outSize, -outSize, -outSize, 1,
-                                        inSize, -inSize, -inSize, 1,
-                                        -inSize, -inSize, -inSize, 1,
-
-                                        outSize, -outSize, -outSize, 1,
-                                        outSize, outSize, -outSize, 1,
-                                        inSize, inSize, -inSize, 1,
-                                        inSize, -inSize, -inSize, 1,
-
-                                        outSize, outSize, -outSize, 1,
-                                        -outSize, outSize, -outSize, 1,
-                                        -inSize, inSize, -inSize, 1,
-                                        inSize, inSize, -inSize, 1,
-
-                                        -outSize, outSize, -outSize, 1,
-                                        -outSize, -outSize, -outSize, 1,
-                                        -inSize, -inSize, -inSize, 1,
-                                        -inSize, inSize, -inSize, 1,
-
-                                        -outSize, -outSize, outSize, 1, // back join
+                                        -outSize, -outSize, outSize, 1, // front join
                                         outSize, -outSize, outSize, 1,
-                                        inSize, -inSize, inSize, 1,
-                                        -inSize, -inSize, inSize, 1,
+                                        inSize, -inSize, -inSize, 1,
+                                        -inSize, -inSize, -inSize, 1,
 
                                         outSize, -outSize, outSize, 1,
                                         outSize, outSize, outSize, 1,
-                                        inSize, inSize, inSize, 1,
-                                        inSize, -inSize, inSize, 1,
+                                        inSize, inSize, -inSize, 1,
+                                        inSize, -inSize, -inSize, 1,
 
                                         outSize, outSize, outSize, 1,
                                         -outSize, outSize, outSize, 1,
-                                        -inSize, inSize, inSize, 1,
-                                        inSize, inSize, inSize, 1,
+                                        -inSize, inSize, -inSize, 1,
+                                        inSize, inSize, -inSize, 1,
 
                                         -outSize, outSize, outSize, 1,
                                         -outSize, -outSize, outSize, 1,
+                                        -inSize, -inSize, -inSize, 1,
+                                        -inSize, inSize, -inSize, 1,
+                                        
+                                        -outSize, -outSize, -outSize, 1, // back join
+                                        outSize, -outSize, -outSize, 1,
+                                        inSize, -inSize, inSize, 1,
                                         -inSize, -inSize, inSize, 1,
-                                        -inSize, inSize, inSize, 1
+
+                                        outSize, -outSize, -outSize, 1,
+                                        outSize, outSize, -outSize, 1,
+                                        inSize, inSize, inSize, 1,
+                                        inSize, -inSize, inSize, 1,
+
+                                        outSize, outSize, -outSize, 1,
+                                        -outSize, outSize, -outSize, 1,
+                                        -inSize, inSize, inSize, 1,
+                                        inSize, inSize, inSize, 1,
+
+                                        -outSize, outSize, -outSize, 1,
+                                        -outSize, -outSize, -outSize, 1,
+                                        -inSize, -inSize, inSize, 1,
+                                        -inSize, inSize, inSize, 1,
+
+                                        -outSize, -outSize, outSize, 1, // front out
+                                        outSize, -outSize, outSize, 1,
+                                        outSize, outSize, outSize, 1,
+                                        -outSize, outSize, outSize, 1,
+
+                                        -outSize, -outSize, -outSize, 1, // back out
+                                        outSize, -outSize, -outSize, 1,
+                                        outSize, outSize, -outSize, 1,
+                                        -outSize, outSize, -outSize, 1,
+
+                                        -inSize, -inSize, inSize, 1, // front in
+                                        inSize, -inSize, inSize, 1,
+                                        inSize, inSize, inSize, 1,
+                                        -inSize, inSize, inSize, 1,
+
+                                        -inSize, -inSize, -inSize, 1, // back in
+                                        inSize, -inSize, -inSize, 1,
+                                        inSize, inSize, -inSize, 1,
+                                        -inSize, inSize, -inSize, 1
+
                                       ]);
 
                                       
