@@ -72,14 +72,14 @@ float perlinNoise3D(vec3 p) {
 void main()
 {
     // Calculate the 3D Perlin noise value based on the fragment's position (fs_Pos)
-    float noiseValue = perlinNoise3D(fs_Pos.xyz + u_Time * 0.1);
+    float noiseValue = perlinNoise3D(fs_Pos.xyz + u_Time * 0.08);
 
     // Interpolate between two colors using the noise value to modulate
     vec4 baseColor = u_Color;   // The base color passed in as uniform
-    vec4 secondaryColor = vec4(0.0, 0.0, 1.0, 1.0); // Blue as the secondary color
+    vec4 secondaryColor = vec4((1.0 - u_Color.x), (1.0 - u_Color.y), (1.0 - u_Color.z), 1.0); // Second color is complement to base color
 
     // Interpolate between base color and secondary color based on the noise value
-    vec4 interpolatedColor = mix(baseColor, secondaryColor, noiseValue);
+    vec4 interpolatedColor = mix(u_Color, secondaryColor, min(noiseValue * 1.8, 1.0));
 
     // Apply basic Lambertian shading using the normal and light vector
     float diffuseTerm = dot(normalize(fs_Nor.xyz), normalize(fs_LightVec.xyz));
