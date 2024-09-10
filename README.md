@@ -1,3 +1,5 @@
+permalink: /index.html
+
 # HW 0: Intro to Javascript and WebGL
 
 <p align="center">
