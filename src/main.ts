@@ -95,7 +95,7 @@ function main() {
     }
 
     const color = vec4.fromValues(controls.color[0] / 255.0, controls.color[1] / 255.0, controls.color[2] / 255.0, controls.color[3]);
-    renderer.render(camera, lambert, color, currentTime, [
+    renderer.render(camera, custom, color, currentTime, [
       //icosphere,
       //square,
       cube
