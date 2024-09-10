@@ -6,6 +6,8 @@
 <p align="center">(source: Ken Perlin)</p>
 
 ## Result
+[Live demo](https://annieqiuuu.github.io/hw00-intro-base/) 
+
 Geometry: icosphere
 ![](Output.gif)
 
