@@ -5,6 +5,8 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## TEST
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
