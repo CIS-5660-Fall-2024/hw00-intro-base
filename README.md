@@ -81,5 +81,5 @@ To check if everything is on the right track:
 ## Decription
 I made the 4D teseract cube animation where it turns inside out (there is also a regular cube class). The animation is all done in the vertex shader using trig functions. In the fragment shader, I used a 3D worley noise as a base, and applied a mod function with a decimal value to get more ridges / layers. 
 
-![Image 1: ](C:\Users\lewis\OneDrive\Desktop\LG SCHOOL\LG PENN\LG PENN 24-25\FALL 2024\CIS 5660\hw00-intro-base\LG_refImg_1.png)
-![Image 2: ](C:\Users\lewis\OneDrive\Desktop\LG SCHOOL\LG PENN\LG PENN 24-25\FALL 2024\CIS 5660\hw00-intro-base\LG_refImg_2.png)
+![Image 1: ](LG_refImg_1.png)
+![Image 2: ](LG_refImg_2.png)
