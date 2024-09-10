@@ -1,3 +1,26 @@
+![](images/demo.gif)
+[Live Demo]()
+## Summary
+- I implemented Fractal Brownian Motion (AKA. FBM) noise on the tested shapes.
+- Change color to give different render effects on the geometry.
+- Change shape to switch your favorite display geometry such as Cube and Icosphere.
+- Change the scale to adjust the percentage of noise influence.
+- Change the speed to speed up or slow down the beating frequency.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### --------------------------------------------------------------------------------------------------------------------------------------------
 # HW 0: Intro to Javascript and WebGL
 
 <p align="center">
