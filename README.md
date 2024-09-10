@@ -1,5 +1,15 @@
 # HW 0: Intro to Javascript and WebGL
 
+## Live Demo & Description
+
+https://joycecheen.github.io/hw00-intro-base/
+
+![Screen Recording 2024-09-09 at 10 56 35 PM](https://github.com/user-attachments/assets/2c0e0422-090c-441a-9443-fb041c0175bc)
+
+In this project, I created a 3d cube using JavaScript and WebGL. I drew a simple cube by defining its indices, normals, and positions, then custom fragment and vertex shaders for a more interesting output. I implemented FBM based on 3D inputs to modify the fragment color to create a smoke-like pattern. The custom vertex shader uses the sin trigonometric function to deform each of the positions of the cube irregularly over time, resulting in a jitter-like motion.
+
+## 
+
 <p align="center">
   <img width="360" height="360" src="https://user-images.githubusercontent.com/1758825/132532354-e3a45402-e484-499e-bfa7-2d73b9f2c946.png">
 </p>
