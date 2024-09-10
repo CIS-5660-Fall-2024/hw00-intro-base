@@ -70,7 +70,7 @@ float fbm(vec3 p) {
 
 void main() {
     // Get the current 3D position input for Perlin noise, add time for animation
-    vec3 noiseInput = fs_Nor.xyz * 3.0 + u_Time * 0.2;
+    vec3 noiseInput = fs_Nor.xyz * 3.0 + u_Time * 0.1;
 
     // Apply FBM (Fractal Brownian Motion) using Perlin noise
     float noiseValue = fbm(noiseInput);
