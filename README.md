@@ -1,3 +1,15 @@
+![](images/demo.gif)
+[Live Demo](https://akikozzm.github.io/hw00-intro-base/)
+## Summary
+- I implemented Fractal Brownian Motion (AKA. FBM) noise on the tested shapes.
+- Change color to give different render effects on the geometry.
+- Change shape to switch your favorite display geometry such as Cube and Icosphere.
+- Change the scale to adjust the percentage of noise influence.
+- Change the speed to speed up or slow down the beating frequency.
+
+  * Fix the bugs on "build and deploy.yml"
+
+#### -------------------------------------------------------------------------------------------------------------------------------------
 # HW 0: Intro to Javascript and WebGL
 
 <p align="center">
