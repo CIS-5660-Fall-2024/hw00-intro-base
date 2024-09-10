@@ -3,6 +3,7 @@ import Drawable from './Drawable';
 import Camera from '../../Camera';
 import {gl} from '../../globals';
 import ShaderProgram from './ShaderProgram';
+import { AutomataProps } from './ShaderProgram';
 
 // In this file, `gl` is accessible because it is imported above
 class OpenGLRenderer {
@@ -25,18 +26,51 @@ class OpenGLRenderer {
   render(camera: Camera, prog: ShaderProgram, drawables: Array<Drawable>) {
     let model = mat4.create();
     let viewProj = mat4.create();
-    let color = vec4.fromValues(1, 0, 0, 1);
 
     mat4.identity(model);
     mat4.multiply(viewProj, camera.projectionMatrix, camera.viewMatrix);
     prog.setModelMatrix(model);
     prog.setViewProjMatrix(viewProj);
+
+    for (let drawable of drawables) {
+      prog.draw(drawable);
+    }
+  }
+
+  renderPassthrough(camera: Camera, prog: ShaderProgram, drawables: Array<Drawable>, texture: WebGLTexture, t: number, color: vec4) {
+    let model = mat4.create();
+    let viewProj = mat4.create();
+
+    mat4.identity(model);
+    mat4.multiply(viewProj, camera.projectionMatrix, camera.viewMatrix);
+    prog.setModelMatrix(model);
+    prog.setViewProjMatrix(viewProj);
+    prog.setTexture(texture)
+    prog.setTime(t);
     prog.setGeometryColor(color);
 
     for (let drawable of drawables) {
       prog.draw(drawable);
     }
   }
+
+  renderAutomata(camera: Camera, prog: ShaderProgram, drawables: Array<Drawable>, texture: WebGLTexture, props: AutomataProps) {
+    let model = mat4.create();
+    let viewProj = mat4.create();
+
+    mat4.identity(model);
+    mat4.multiply(viewProj, camera.projectionMatrix, camera.viewMatrix);
+    prog.setModelMatrix(model);
+    prog.setViewProjMatrix(viewProj);
+    prog.setTexture(texture);
+    prog.setProps(props);
+
+    for (let drawable of drawables) {
+      prog.draw(drawable);
+    }
+  }
+
+
 };
 
 export default OpenGLRenderer;
