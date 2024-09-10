@@ -15,7 +15,7 @@ import TesCube from './geometry/TesTest';
 const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
-  Color: [104,0,255],
+  Color: [105,0,255],
 };
 
 let icosphere: Icosphere;
