@@ -14,7 +14,7 @@ jobs:
 
       - uses: actions/setup-node@v2-beta
         with:
-          node-version: "15.x"
+          node-version: "20.x"
 
       - uses: actions/cache@v2
         with:
@@ -22,7 +22,7 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install and Build 🔧
+      - name: Install and Build  🔧
         run: |
           npm ci
           export NODE_ENV=production

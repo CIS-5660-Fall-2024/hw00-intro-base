@@ -1,8 +1,9 @@
-import {vec3} from 'gl-matrix';
+import {vec3, vec4} from 'gl-matrix';
 const Stats = require('stats-js');
 import * as DAT from 'dat.gui';
 import Icosphere from './geometry/Icosphere';
 import Square from './geometry/Square';
+import Cube from './geometry/Cube';
 import OpenGLRenderer from './rendering/gl/OpenGLRenderer';
 import Camera from './Camera';
 import {setGL} from './globals';
@@ -13,10 +14,15 @@ import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 const controls = {
   tesselations: 5,
   'Load Scene': loadScene, // A function pointer, essentially
+  color: [90, 200, 230], // default color
+  alpha: 1.0,
+  shader: 'worley',
+  worley: 5,
 };
 
 let icosphere: Icosphere;
 let square: Square;
+let cube: Cube;
 let prevTesselations: number = 5;
 
 function loadScene() {
@@ -24,6 +30,8 @@ function loadScene() {
   icosphere.create();
   square = new Square(vec3.fromValues(0, 0, 0));
   square.create();
+  cube = new Cube(vec3.fromValues(0, 0, 0));
+  cube.create();
 }
 
 function main() {
@@ -39,6 +47,17 @@ function main() {
   const gui = new DAT.GUI();
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
+  //gui to toogle u_Color
+  gui.addColor(controls, 'color');
+  gui.add(controls, 'alpha', 0.0, 1.0).step(0.1);
+  // gui to change different shaders
+  gui.add(controls, 'shader', ['lambert', 'worley']);
+
+  // add additional gui elements for different shaders
+  if(controls.shader == 'worley')
+  {
+    gui.add(controls, 'worley', 0.0, 50.0).step(1);
+  }
 
   // get canvas and webgl context
   const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -56,7 +75,7 @@ function main() {
   const camera = new Camera(vec3.fromValues(0, 0, 5), vec3.fromValues(0, 0, 0));
 
   const renderer = new OpenGLRenderer(canvas);
-  renderer.setClearColor(0.2, 0.2, 0.2, 1);
+  renderer.setClearColor(0.02, 0.234, 0.289, 1);
   gl.enable(gl.DEPTH_TEST);
 
   const lambert = new ShaderProgram([
@@ -64,22 +83,49 @@ function main() {
     new Shader(gl.FRAGMENT_SHADER, require('./shaders/lambert-frag.glsl')),
   ]);
 
+  const worley = new ShaderProgram([
+    new Shader(gl.VERTEX_SHADER, require('./shaders/custom-vert.glsl')),
+    new Shader(gl.FRAGMENT_SHADER, require('./shaders/worley-frag.glsl')),
+  ]);
+
+
   // This function will be called every frame
   function tick() {
     camera.update();
     stats.begin();
     gl.viewport(0, 0, window.innerWidth, window.innerHeight);
     renderer.clear();
+    //set color to shader
+    const color = vec4.fromValues(controls.color[0] / 255, controls.color[1] / 255, controls.color[2] / 255, controls.alpha);
+    lambert.setGeometryColor(color);
+    worley.setGeometryColor(color);
+    //console.log('Updated color in shader:', color);
     if(controls.tesselations != prevTesselations)
     {
       prevTesselations = controls.tesselations;
       icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, prevTesselations);
       icosphere.create();
     }
-    renderer.render(camera, lambert, [
-      icosphere,
-      // square,
-    ]);
+    // get time
+    const time = performance.now() / 1000.0;
+    //console.log('Time:', time);
+
+    if(controls.shader == 'lambert')
+    {
+      renderer.render(camera, lambert, [
+        icosphere,
+        // square,
+        // cube,
+      ], color, time);
+    }
+    else
+    {
+      renderer.renderWorley(camera, worley, [
+        //icosphere,
+        // square,
+         cube,
+      ], color, time, controls.worley);
+    }
     stats.end();
 
     // Tell the browser to call `tick` again whenever it renders a new frame
