@@ -1,5 +1,5 @@
 ![](images/demo.gif)
-[Live Demo]()
+[Live Demo](https://akikozzm.github.io/hw00-intro-base/)
 ## Summary
 - I implemented Fractal Brownian Motion (AKA. FBM) noise on the tested shapes.
 - Change color to give different render effects on the geometry.
