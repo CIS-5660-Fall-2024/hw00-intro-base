@@ -4,9 +4,9 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: path.resolve(__dirname, "src/main"),
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-    publicPath: '/',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',
+    filename: 'bundle.js'
   },
   module: {
     rules: [
