@@ -5,6 +5,16 @@
 </p>
 <p align="center">(source: Ken Perlin)</p>
 
+## Clara's Updates
+- Added changes to vertex shader to deform cube based off of sine and cosine values
+- Can pick color with GUI
+- Implemented Perlin Noise 3D color effect that lerps to Worley Noise 3D cell effect
+
+ ![image](https://github.com/user-attachments/assets/ea6abdf9-0668-46dc-be91-6b1125368afb)
+![image](https://github.com/user-attachments/assets/6fd36835-1da2-4ad0-9779-a32016317bd6)
+
+
+
 ## Objective
 - Check that the tools and build configuration we will be using for the class works.
 - Start learning Typescript and WebGL2
