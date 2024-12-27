@@ -1,5 +1,3 @@
-# HW 0: Intro to Javascript and WebGL
-
 ## To build and test:
 `npm start` + `localhost:5660`
 
