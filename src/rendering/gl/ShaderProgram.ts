@@ -85,6 +85,11 @@ class ShaderProgram {
     }
   }
 
+  setTime(time: number) {
+    this.use();
+    gl.uniform1f(gl.getUniformLocation(this.prog, "u_Time"), time);
+  }
+
   draw(d: Drawable) {
     this.use();
 
